@@ -1,5 +1,8 @@
 package cjc.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,11 +22,12 @@ public class ScoreController extends BaseController{
 	
 		@RequestMapping(value = "/signIn")
 	    @ResponseBody
-	    public H5Response userSignIn(String openId) throws Exception {
+	    public H5Response userSignIn(HttpServletRequest request,
+				HttpServletResponse response,String openId) throws Exception {
 			SignInStateEnum  signInState=signInScoreService.signIn(openId);
-			JSONObject json=new JSONObject();
-			json.put("code", signInState.getCode());
-			json.put("msg", signInState.getMessage());
-			return succeed(json);
+//			JSONObject json=new JSONObject();
+//			json.put("code", signInState.getCode());
+//			json.put("msg", signInState.getMessage());
+			return succeed(signInState);
 	    }
 }

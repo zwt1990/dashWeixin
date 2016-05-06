@@ -5,15 +5,15 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import cjc.dao.entity.score.UserScoreLog;
-import cjc.dao.score.UserScoreLogDao;
+import cjc.entity.score.UserScoreLog;
+import cjc.mapper.score.UserScoreLogMapper;
 import cjc.utils.DateUtil;
 
 @Component
 public  class BaseScoreOperate {
 
 	@Autowired
-	protected UserScoreLogDao	userScoreLogDao;
+	protected UserScoreLogMapper	userScoreLogMapper;
 	
 	@Transactional
 	public  void  addScore(String openId,ScoreEnum scoreEnum){
@@ -22,7 +22,7 @@ public  class BaseScoreOperate {
 		 userScoreLog.setScore(scoreEnum.getScore());
 		 userScoreLog.setType(scoreEnum.getType());
 		 userScoreLog.setOpenId(openId);
-		 userScoreLogDao.save(userScoreLog);
+		 userScoreLogMapper.save(userScoreLog);
 	}
 	
 	public static void deleteScore(String openId,ScoreEnum scoreEnum){

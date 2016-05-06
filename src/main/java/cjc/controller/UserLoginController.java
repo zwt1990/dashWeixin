@@ -1,7 +1,6 @@
 package cjc.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,31 +9,28 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import cjc.dao.entity.sys.UserLogin;
+import cjc.controller.common.H5Response;
+import cjc.entity.sys.UserLogin;
 import cjc.service.UserLoginService;
 
 @Controller
 @RequestMapping(value="user/")
-public class UserLoginController {
+public class UserLoginController extends BaseController{
 
 	@Autowired
 	private UserLoginService	userLoginService;
 	
 	@RequestMapping(value = "login")
-	public void queryList(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-		String username="zhangsan";
-		String password="2222";
-		List<UserLogin> logins=userLoginService.findByUsernameAndPassword(username, password);
+	@ResponseBody
+	public H5Response queryList(HttpServletRequest request,
+			HttpServletResponse response,UserLogin userLogin) throws IOException {
+		List<UserLogin> logins=userLoginService.findByUsernameAndPassword(userLogin.getUsername(), userLogin.getPassword());
 		if(logins==null||logins.size()==0){
-			System.out.println("登录失败-----");
-			 response.getWriter().print("fail");
-			 return ;
+			 return failed("登录失败-----");
 		}
-		System.out.println("登录成功-----");
-		 response.getWriter().print("success");
+		 return succeed("登录成功-----");
 	}
 	
 }
