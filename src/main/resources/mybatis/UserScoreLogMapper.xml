@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cjc.mapper.score.UserScoreLogMapper">
+ 
+ 	<sql id="all_column">
+		`id`,`open_id`, `type`, `score`, `log_time`
+	</sql>
+ 
+  <select id="findByUserIdAndTypeAndDate" resultType="cjc.entity.score.UserScoreLog">
+    select <include refid="all_column"/>  from score_user_log WHERE open_id=#{openId, jdbcType=VARCHAR} AND type=#{type, jdbcType=BIGINT} And log_time like "%"#{logTime}"%";
+  </select>
+  
+  <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="cjc.entity.score.UserScoreLog">
+		INSERT INTO `score_user_log`(`open_id`, `type`, `score`, `log_time`) 
+		VALUES(#{openId}, #{type}, #{score}, #{logTime})
+    </insert>
+</mapper>
