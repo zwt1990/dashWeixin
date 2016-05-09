@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.apache.log4j.Logger;
+import org.springframework.util.StringUtils;
 
 public class DateUtil {
 	  // ~ Static fields/initializers  
@@ -580,24 +581,37 @@ public class DateUtil {
 	     *      </p> 
 	     */  
 	    public static int compareToCurTime (String strDate) {  
-//	        if (StringUtils.isBlank(strDate)) {  
-//	            return -1;  
-//	        }  
-//	        Date curTime = cale.getTime();  
-//	        String strCurTime = null;  
-//	        try {  
-//	            strCurTime = sdf_datetime_format.format(curTime);  
-//	        } catch (Exception e) {  
-//	            if (logger.isDebugEnabled()) {  
-//	                logger.debug("[Could not format '" + strDate + "' to a date, throwing exception:" + e.getLocalizedMessage() + "]");  
-//	            }  
-//	        }  
-//	        if (StringUtils.isNotBlank(strCurTime)) {  
-//	            return strCurTime.compareTo(strDate);  
-//	        }  
+	        if (StringUtils.isEmpty(strDate)) {  
+	            return -1;  
+	        }  
+	        Date curTime = cale.getTime();  
+	        String strCurTime = null;  
+	        try {  
+	            strCurTime = sdf_datetime_format.format(curTime);  
+	        } catch (Exception e) {  
+	            if (logger.isDebugEnabled()) {  
+	                logger.debug("[Could not format '" + strDate + "' to a date, throwing exception:" + e.getLocalizedMessage() + "]");  
+	            }  
+	        }  
+	        if (StringUtils.isEmpty(strCurTime)) {  
+	            return strCurTime.compareTo(strDate);  
+	        }  
 	        return -1;  
 	    }  
-	      
+	    
+	    
+	    public static int compareToCurTime (Date date) {  
+	        if (date==null) {  
+	            return -1;  
+	        }  
+	        Date curTime = cale.getTime();  
+	        if (curTime!=null) {  
+	            return curTime.compareTo(date);  
+	        }  
+	        return -1;  
+	    }  
+	    
+	    
 	    /** 
 	     * 为查询日期添加最小时间 
 	     *  

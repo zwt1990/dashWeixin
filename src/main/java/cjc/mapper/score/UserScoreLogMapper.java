@@ -11,4 +11,6 @@ public interface UserScoreLogMapper {
 	public List<UserScoreLog> findByUserIdAndTypeAndDate(@Param(value="openId") String openId,@Param(value="type") Integer type,@Param(value="logTime") String logTime);
 	 
 	public int save(UserScoreLog userScoreLog);
+	
+	public int getSumScore(@Param(value="userId") String userId);
 }
