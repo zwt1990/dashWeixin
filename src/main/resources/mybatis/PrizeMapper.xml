@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cjc.mapper.activity.PrizeMapper">
+ 
+ <sql id="all_column">
+		`id`,`name`, `name`, `num`, `rate`, `type`
+	</sql>
+ 
+  <select id="findByActivityId" resultType="cjc.entity.activity.Prize">
+    select <include refid="all_column"/> from activity_prize WHERE activity_prize=#{username, jdbcType=BIGINT};
+  </select>
+</mapper>

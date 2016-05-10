@@ -1,11 +1,26 @@
 package cjc.entity.activity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "activity_prize")
 public class Prize {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(name="activity_id")
 	private Integer activityId;
+	
 	private String name;
 	private String num;
-	private double rate;
+	private Double rate;
 	private Integer type;
 	
 	public Integer getId() {
@@ -29,7 +44,7 @@ public class Prize {
 	public double getRate() {
 		return rate;
 	}
-	public void setRate(double rate) {
+	public void setRate(Double rate) {
 		this.rate = rate;
 	}
 	public Integer getActivityId() {

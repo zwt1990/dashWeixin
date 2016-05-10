@@ -22,7 +22,7 @@ public class ActivityServiceImpl implements ActivityService{
 		Lottery lottery=null;
 		switch (activity.getType()) {
 		case 0://转盘抽奖--模板
-			lottery=new TemplateLottery(userId, activityId);
+			lottery=new TemplateLottery(userId, activityId);//TODO 这种方式无法注入bean
 			break;
 		default:
 			break;

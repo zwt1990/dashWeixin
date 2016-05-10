@@ -26,6 +26,10 @@ public class TemplateLottery extends Lottery{
 	@Autowired
 	private UserScoreLogMapper userScoreLogMapper;
 	
+	public TemplateLottery(){
+		
+	}
+	
 	public TemplateLottery(String userId, Integer activityId) {
 		super(userId, activityId);
 	}

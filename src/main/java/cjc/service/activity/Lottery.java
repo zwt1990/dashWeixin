@@ -1,7 +1,5 @@
 package cjc.service.activity;
 
-import java.util.Random;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +19,10 @@ public abstract class Lottery {
 	@Autowired
 	protected ActivityMapper	activityMapper;
 	
+	public Lottery(){
+	}
+	
+	@Autowired
 	public Lottery(String userId,Integer activityId){
 		this.userId=userId;
 		this.activityId=activityId;
