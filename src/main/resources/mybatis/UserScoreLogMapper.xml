@@ -15,7 +15,7 @@
 		VALUES(#{openId}, #{type}, #{score}, #{logTime})
     </insert>
     
-    <select id="getUserSumScore" resultType="java.lang.Integer">
+    <select id="getSumScore" resultType="java.lang.Integer">
   		 select sum(score) from score_user_log where open_id =#{userId, jdbcType=VARCHAR}
   </select>
 </mapper>

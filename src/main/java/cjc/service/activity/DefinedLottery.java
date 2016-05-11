@@ -4,18 +4,15 @@ import cjc.entity.activity.Prize;
 
 public class DefinedLottery extends Lottery {
 
-	public DefinedLottery(String userId, Integer activityId) {
-		super(userId, activityId);
-	}
-
 	@Override
-	public Prize getPrize() {
+	public Prize getPrize(String userId, Integer activityId) {
 		return null;
 	}
 
 	@Override
-	public int getRemainTimes() {
+	public int getRemainTimes(String userId, Integer activityId) {
 		return 0;
 	}
+
 
 }

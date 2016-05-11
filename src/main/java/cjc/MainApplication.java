@@ -9,12 +9,15 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import cjc.utils.BeanUtil;
 
 @EnableTransactionManagement
 @EnableAutoConfiguration
@@ -40,7 +43,6 @@ public class MainApplication extends SpringBootServletInitializer {
         sqlSessionFactoryBean.setDataSource(dataSource());
 
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-      System.out.println("长度"+resolver.getResources("classpath:/mybatis/*.xml").length);  
         sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:/mybatis/*.xml"));
 
         return sqlSessionFactoryBean.getObject();
@@ -54,7 +56,8 @@ public class MainApplication extends SpringBootServletInitializer {
 
 	
 	public static void main(String[] args) throws Exception {
-		SpringApplication.run(MainApplication.class, args);
+		final ApplicationContext applicationContext =SpringApplication.run(MainApplication.class, args);
+		BeanUtil.setApplicationContext(applicationContext);
 	}
 
 }

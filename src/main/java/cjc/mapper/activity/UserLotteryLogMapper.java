@@ -1,8 +1,12 @@
 package cjc.mapper.activity;
 
-public interface UserLotteryLogMapper {
+import java.io.Serializable;
+
+import org.springframework.data.repository.CrudRepository;
+
+import cjc.entity.activity.UserLotteryLog;
+
+public interface UserLotteryLogMapper extends CrudRepository<UserLotteryLog, Serializable>{
 	
-	public int save(UserLotteryLogMapper userLotteryLogMapper);
 	
-	public int getUserSumScore(String userId);
 }

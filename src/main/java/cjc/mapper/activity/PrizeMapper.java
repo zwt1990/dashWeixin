@@ -8,5 +8,5 @@ import cjc.entity.activity.Prize;
 
 public interface PrizeMapper {
 	
-	public List<Prize> findByActivityId(@Param(value="activity") Integer activity);
+	public List<Prize> findByActivityId(@Param(value="activityId") Integer activity);
 }

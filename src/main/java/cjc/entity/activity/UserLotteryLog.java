@@ -30,6 +30,9 @@ public class UserLotteryLog {
 	@Column(name="prize_id")
 	private Integer prizeId;
 	
+	@Column(name="activity_id")
+	private Integer activityId;
+	
 	@Column(name="succ_flag")
 	private Integer succFlag;//是否中奖
 	
@@ -56,5 +59,17 @@ public class UserLotteryLog {
 	}
 	public void setSuccFlag(Integer succFlag) {
 		this.succFlag = succFlag;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getActivityId() {
+		return activityId;
+	}
+	public void setActivityId(Integer activityId) {
+		this.activityId = activityId;
 	}
 }

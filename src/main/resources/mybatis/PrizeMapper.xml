@@ -3,10 +3,10 @@
 <mapper namespace="cjc.mapper.activity.PrizeMapper">
  
  <sql id="all_column">
-		`id`,`name`, `name`, `num`, `rate`, `type`
+		`id`,`name`, `num`, `rate`, `type`
 	</sql>
  
   <select id="findByActivityId" resultType="cjc.entity.activity.Prize">
-    select <include refid="all_column"/> from activity_prize WHERE activity_prize=#{username, jdbcType=BIGINT};
+    select <include refid="all_column"/> from activity_prize WHERE activity_id=#{activityId, jdbcType=BIGINT};
   </select>
 </mapper>

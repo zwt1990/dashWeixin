@@ -1,5 +1,7 @@
 package cjc.entity.activity;
 
+
+
 import java.util.Date;
 
 import javax.persistence.Column;

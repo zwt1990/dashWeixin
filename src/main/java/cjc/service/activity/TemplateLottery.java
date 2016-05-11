@@ -29,13 +29,9 @@ public class TemplateLottery extends Lottery{
 	public TemplateLottery(){
 		
 	}
-	
-	public TemplateLottery(String userId, Integer activityId) {
-		super(userId, activityId);
-	}
 
 	@Override
-	public  Prize getPrize() {
+	public  Prize getPrize(String userId,Integer activityId) {
 		List<Prize> prizes=prizeMapper.findByActivityId(activityId);
 		if(CollectionUtils.isEmpty(prizes)){
 			return null;
@@ -68,7 +64,7 @@ public class TemplateLottery extends Lottery{
 	
 	
 	@Override
-	public int getRemainTimes() {
+	public int getRemainTimes(String userId,Integer activityId) {
 		Activity activity=activityMapper.getActivity(activityId);
 		int sumScore=userScoreLogMapper.getSumScore(userId);
 		return sumScore/activity.getTakeScore();

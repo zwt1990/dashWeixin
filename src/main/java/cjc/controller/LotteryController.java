@@ -23,7 +23,7 @@ public class LotteryController extends BaseController{
 	    public H5Response userSignIn(HttpServletRequest request,
 				HttpServletResponse response,String openId,Integer activityId) throws Exception {
 			Integer code=activityService.lottery(openId, activityId);
-			System.out.println("code-----"+code);
+			System.out.println("code=========================="+code);
 			return succeed(code);
 	    }
 }
