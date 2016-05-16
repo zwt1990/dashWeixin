@@ -10,4 +10,5 @@ public interface UserLoginMapper {
 	
 	List<UserLogin> findUserPass(@Param(value="username") String username,@Param(value="password") String password);
 	
+	List<UserLogin> getAllUsers();
 }

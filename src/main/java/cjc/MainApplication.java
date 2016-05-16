@@ -7,24 +7,22 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.web.SpringBootServletInitializer;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import cjc.utils.BeanUtil;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @EnableTransactionManagement
 @EnableAutoConfiguration
 @SpringBootApplication
 @ComponentScan
 @MapperScan("cjc.mapper")
-public class MainApplication extends SpringBootServletInitializer {
+public class MainApplication extends WebMvcConfigurerAdapter{
 
 	public static final String CONFIG_ENV = "CONFIG_ENV";
 	
@@ -54,10 +52,11 @@ public class MainApplication extends SpringBootServletInitializer {
         return new DataSourceTransactionManager(dataSource());
     }
 
-	
+ 	
+ 	
 	public static void main(String[] args) throws Exception {
-		final ApplicationContext applicationContext =SpringApplication.run(MainApplication.class, args);
-		BeanUtil.setApplicationContext(applicationContext);
+	SpringApplication.run(MainApplication.class, args);
+	   
 	}
 
 }

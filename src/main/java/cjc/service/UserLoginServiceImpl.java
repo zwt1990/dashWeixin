@@ -21,4 +21,8 @@ public class UserLoginServiceImpl implements UserLoginService{
 		return logins;
 	}
 
+	public List<UserLogin> getAllUsers() {
+		return userLoginMapper.getAllUsers();
+	}
+
 }

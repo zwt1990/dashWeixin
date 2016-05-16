@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cjc.mapper.reserve.UserDictMapper">
+ 	<resultMap id="ModuleDictMap" type="cjc.dto.ModuleDictDTO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="key" property="key" jdbcType="VARCHAR" />
+		<result column="property" property="name" jdbcType="VARCHAR" />
+		<result column="content_type" property="type" jdbcType="VARCHAR" />
+		<result column="value"  property="value"  jdbcType="VARCHAR" />
+	</resultMap>
+ 
+ 
+ 
+  <select id="getModuleDict" resultMap="ModuleDictMap">
+   select md.id id,d.key ,d.value property ,d.content_type ,ud.value from reserve_mod_dict md LEFT JOIN reserve_dictionary d   on md.dict_id = d.id and md.module_id = 1 LEFT JOIN   reserve_user_dict ud on md.id = ud.mod_dict_id
+   where md.module_id =#{moduleId, jdbcType=BIGINT}  and  user_id =#{userId, jdbcType=BIGINT};
+  </select>
+</mapper>

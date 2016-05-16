@@ -78,6 +78,12 @@
             <artifactId>mybatis</artifactId>
             <version>3.2.8</version>
         </dependency>
+        <dependency>
+	    <groupId>redis.clients</groupId>
+	    <artifactId>jedis</artifactId>
+	    <version>2.5.2</version>
+		</dependency>
+        
 		<dependency>
 		<groupId>org.json</groupId>
 		<artifactId>json</artifactId>

@@ -8,5 +8,7 @@ import cjc.entity.sys.UserLogin;
 public interface UserLoginService {
 	
 	List<UserLogin> findByUsernameAndPassword(String username,String password);
+	
+	List<UserLogin> getAllUsers();
 
 }

@@ -5,4 +5,8 @@
   <select id="findUserPass" resultType="cjc.entity.sys.UserLogin">
     select id, username,password from sys_user_login WHERE username=#{username, jdbcType=VARCHAR} AND password=#{password, jdbcType=VARCHAR};
   </select>
+  
+   <select id="getAllUsers" resultType="cjc.entity.sys.UserLogin">
+    select id, username,password from sys_user_login ;
+  </select>
 </mapper>
