@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cjc.mapper.exam.QuestionOptMapper">
+  	<resultMap id="QuestionOptMap" type="cjc.entity.exam.QuestionOpt">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="question_id" property="questionId" jdbcType="BIGINT" />
+		<result column="index" property="index" jdbcType="BIGINT" />
+	</resultMap>
+  <select id="findOptsByExamId" resultMap="QuestionOptMap">
+  	select  o.id,o.name,o.question_id,o.index from exam_question q,exam_question_opt o where q.id= o.question_id AND q.exam_id  =#{examId, jdbcType=BIGINT};
+  </select>
+  
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="cjc.entity.exam.QuestionOpt">
+		INSERT INTO `exam_question_opt`(`name`, `question_id`, `index`) 
+		VALUES(#{name}, #{questionId}, #{index})
+    </insert>
+</mapper>

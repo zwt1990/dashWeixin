@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="description" content="">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="static/css/reserve.css" />
+<title>预约</title>
+</head>
+<body>
+	<img src="../sys/static/bootstrap/img/p8.jpg"   class="poster_img"/>
+	<table class="reserve_table">
+	<tr class="reserve_table_tr">
+	<td class="left_td">您的姓名:</td>
+	<td class="right_td"><input type="text" id="name" placeholder="请输入您的姓名" class="reserve_input"/><span class="icon-flow">*</span></td>
+	</tr>
+	<tr>
+	<td class="left_td">您的性别:</td>
+	<td  class="right_td"><span><input type="radio" name="sex" value="1"></span><span>男</span><span><input type="radio" name="sex" value="2"></span>女</td>
+	</tr>
+	<tr>
+	<td class="left_td">联系方式:</td>
+	<td  class="right_td"><input type="tel" id="mobile" placeholder="请输入您的联系方式" class="reserve_input"/><span class="icon-flow">*</span></td>
+	</tr>
+	<tr>
+	<td class="left_td">预约套餐:</td>
+	<td  class="right_td"><select><option>套餐A</option></select><span class="icon-flow">*</span></td>
+	</tr>
+	<tr>
+	<td class="left_td">预约日期:</td>
+	<td  class="right_td"><input type="date" id="date" placeholder="请选择预约日期" class="reserve_input"/><span class="icon-flow">*</span></td>
+	</tr>
+	<tr>
+	<td class="left_td" style="vertical-align: top;">详细备注:</td>
+	<td  class="right_td"><textarea rows="4" cols="30"></textarea> </td>
+	</tr>
+	</table>
+	<div class="btn_group">
+	<span class="dis_btn" >电话咨询</span>
+	<span  class="pos_btn">提交预约</span>
+	</div>
+</body>
+</html>

@@ -20,7 +20,7 @@ import cjc.controller.common.H5Response;
 /**
  * 
  * 
- * @author 彭代超
+ * @author zwt
  * @date: 2015年11月4日 下午6:17:05
  */
 public class BaseController {

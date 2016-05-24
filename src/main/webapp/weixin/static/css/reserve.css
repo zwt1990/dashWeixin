@@ -1,0 +1,56 @@
+body{
+	padding:0px;
+	font-size:18px;
+	margin:0px;
+	 font-weight :bold;
+}
+.poster_img{
+	width:100%;
+	height:150px;
+	
+}
+.reserve_table{
+	width:100%;
+}
+.reserve_table_tr{
+		width:100%;
+}
+.left_td{
+		width:30%;
+		text-align:right;
+		padding:7px 0px;
+}
+.right_td{
+		width:70%;
+		text-align:left;
+		padding:7px 0px;
+}
+.icon-flow{
+	color:red;
+	padding:5px;
+	font-size:20px;
+}
+.reserve_input {
+	width:150px;
+	height:20px;
+}
+select{
+	width:150px;
+	height:25px;
+	padding:5px;
+}
+.btn_group{
+	text-align:center;
+	color:white;
+	margin-top:30px;
+}
+.dis_btn{
+	background:gray;
+	padding:15px 30px;
+	margin:0px 10px;
+}
+.pos_btn{
+	background:red;
+	padding:15px 30px;
+	margin:0px 10px;
+}
