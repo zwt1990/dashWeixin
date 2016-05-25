@@ -12,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "exam_reslut")
+@Table(name = "exam_result")
 public class ExamResult {
 
 	@Id
@@ -23,7 +23,7 @@ public class ExamResult {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date beginDate;
 	
-	@Column(name = "end_time")
+	@Column(name = "end_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date endDate;
 

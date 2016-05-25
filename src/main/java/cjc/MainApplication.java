@@ -1,5 +1,8 @@
 package cjc;
 
+import javax.annotation.Resource;
+import javax.persistence.EntityManagerFactory;
+
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -13,6 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -26,7 +30,9 @@ public class MainApplication extends WebMvcConfigurerAdapter{
 
 	public static final String CONFIG_ENV = "CONFIG_ENV";
 	
-
+    @Resource(name="txManager")
+    private PlatformTransactionManager txManager;
+	
 	@Bean
     @ConfigurationProperties(prefix="spring.datasource")
     public DataSource dataSource() {
@@ -44,6 +50,19 @@ public class MainApplication extends WebMvcConfigurerAdapter{
         sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:/mybatis/*.xml"));
 
         return sqlSessionFactoryBean.getObject();
+    }
+	
+
+
+    // 创建事务管理器2
+    @Bean(name = "txManager")
+    public PlatformTransactionManager txManager(EntityManagerFactory factory) {
+        return new JpaTransactionManager(factory);
+    }
+
+    // 实现接口 TransactionManagementConfigurer 方法，其返回值代表在拥有多个事务管理器的情况下默认使用的事务管理器
+    public PlatformTransactionManager annotationDrivenTransactionManager() {
+        return txManager;
     }
 	
 	

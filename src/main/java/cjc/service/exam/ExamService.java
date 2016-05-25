@@ -2,7 +2,9 @@ package cjc.service.exam;
 
 import java.util.List;
 
+import cjc.dto.ExamDTO;
 import cjc.dto.QuestionDTO;
+import cjc.entity.exam.Exam;
 
 public interface ExamService {
 	
@@ -11,7 +13,7 @@ public interface ExamService {
 	 * @param examId
 	 * @param questions
 	 */
-	public void createExamQues(Integer examId,List<QuestionDTO> questions);
+	public void createExamQues(ExamDTO exam);
 
 	/**
 	 * 根据exmaId查询题目
@@ -26,5 +28,8 @@ public interface ExamService {
 	 * @param questions
 	 */
 	public void  submitExam(String userId,Integer examId,List<QuestionDTO> questions);
+	
+	
+	public Exam getExam(Integer examId);
 	
 }

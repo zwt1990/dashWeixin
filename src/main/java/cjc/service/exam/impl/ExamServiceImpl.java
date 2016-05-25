@@ -3,16 +3,21 @@ package cjc.service.exam.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import cjc.dto.ExamDTO;
 import cjc.dto.QuestionDTO;
+import cjc.entity.exam.Exam;
 import cjc.entity.exam.ExamResult;
 import cjc.entity.exam.QuestionOpt;
 import cjc.entity.exam.Question;
 import cjc.entity.exam.ResultDeatil;
+import cjc.mapper.exam.ExamMapper;
 import cjc.mapper.exam.QuestionOptMapper;
 import cjc.mapper.exam.QuestionMapper;
 import cjc.mapper.exam.ResultMapper;
@@ -30,7 +35,8 @@ public class ExamServiceImpl implements ExamService{
 	private ResultDeatilMapper	resultDeatilMapper;
 	@Autowired
 	private ResultMapper	resultMapper;
-	
+	@Autowired
+	private ExamMapper	examMapper;
 	
 	@Override
 	public List<QuestionDTO> queryQuestionsByExamId(Integer examId) {
@@ -83,7 +89,7 @@ public class ExamServiceImpl implements ExamService{
 		return score;
 	}
 
-	@Transactional
+	@Transactional(value="txManager")
 	public void submitExam(String userId, Integer examId,List<QuestionDTO> quesAnswers) {
 		ExamResult reslut=new ExamResult();
 		reslut.setBeginDate(DateUtil.getDate());
@@ -105,14 +111,14 @@ public class ExamServiceImpl implements ExamService{
 		
 	}
 
-	@Override
-	@Transactional
-	public void createExamQues(Integer examId,List<QuestionDTO> questions) {
+	@Transactional(value="txManager")
+	public void createExamQues(ExamDTO exam) {
+		List<QuestionDTO> questions=exam.getQuestions();
 		for(QuestionDTO q:questions){
 			Question question=new Question();
 			question.setAnswer(q.getAnswer());
 			question.setIndex(q.getIndex());
-			question.setExamId(examId);
+			question.setExamId(exam.getExamId());
 			question.setName(q.getName());
 			question.setScore(q.getScore());
 			questionMapper.save(question);
@@ -125,5 +131,10 @@ public class ExamServiceImpl implements ExamService{
 			}
 		}
 		
+	}
+
+	@Override
+	public Exam getExam(Integer examId) {
+		return examMapper.findOne(examId);
 	}
 }
