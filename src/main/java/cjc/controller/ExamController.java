@@ -11,20 +11,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
-
-
-
-
-
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
 import cjc.controller.common.H5Response;
 import cjc.dto.ExamDTO;
+import cjc.dto.ExamResultDTO;
+import cjc.dto.ExamStatisticsDTO;
 import cjc.dto.QuestionDTO;
 import cjc.entity.exam.Exam;
 import cjc.service.exam.ExamService;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 @Controller
 @RequestMapping(value="exam/")
@@ -61,6 +57,21 @@ public class ExamController extends BaseController{
 			HttpServletResponse response,@RequestBody  ExamDTO exam) throws Exception {
 		examService.createExamQues(exam);
 		return succeed();
+    }
+	
+	@RequestMapping(value = "/getExamResults")
+    @ResponseBody
+    public H5Response getExamResults(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		List<ExamStatisticsDTO> exams=examService.statisExamResult();
+		return succeed(exams);
+    }
+	@RequestMapping(value = "/getDetailResults")
+    @ResponseBody
+    public H5Response getDetailResults(HttpServletRequest request,
+			HttpServletResponse response,Integer examId) throws Exception {
+		List<ExamResultDTO> results=examService.getResultByExamId(examId);
+		return succeed(results);
     }
 	
 }

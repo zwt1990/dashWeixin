@@ -6,11 +6,15 @@ import java.util.List;
 
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cjc.dto.ExamDTO;
+import cjc.dto.ExamResultDTO;
+import cjc.dto.ExamStatisticsDTO;
 import cjc.dto.QuestionDTO;
 import cjc.entity.exam.Exam;
 import cjc.entity.exam.ExamResult;
@@ -97,12 +101,12 @@ public class ExamServiceImpl implements ExamService{
 		reslut.setExamId(examId);
 		reslut.setUserId(userId);
 		reslut.setScore(getExamScore(examId, quesAnswers));
-		reslut=resultMapper.save(reslut);
+		int resultId=resultMapper.save(reslut);
 		for(QuestionDTO q: quesAnswers){
 			ResultDeatil detail=new ResultDeatil();
 			detail.setAnswer(q.getAnswer());
 			detail.setQuestionId(q.getId());
-			detail.setResultId(reslut.getId());
+			detail.setResultId(resultId);
 			resultDeatilMapper.save(detail);
 		}
 		
@@ -137,4 +141,15 @@ public class ExamServiceImpl implements ExamService{
 	public Exam getExam(Integer examId) {
 		return examMapper.findOne(examId);
 	}
+
+	@Override
+	public List<ExamResultDTO> getResultByExamId(Integer examId) {
+		return resultMapper.getResultByExamId(examId);
+	}
+
+	@Override
+	public List<ExamStatisticsDTO> statisExamResult() {
+		return resultMapper.statisExamResult();
+	}
+
 }

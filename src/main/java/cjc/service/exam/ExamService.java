@@ -3,8 +3,11 @@ package cjc.service.exam;
 import java.util.List;
 
 import cjc.dto.ExamDTO;
+import cjc.dto.ExamResultDTO;
+import cjc.dto.ExamStatisticsDTO;
 import cjc.dto.QuestionDTO;
 import cjc.entity.exam.Exam;
+import cjc.entity.exam.ExamResult;
 
 public interface ExamService {
 	
@@ -29,6 +32,19 @@ public interface ExamService {
 	 */
 	public void  submitExam(String userId,Integer examId,List<QuestionDTO> questions);
 	
+	/**
+	 * 查询某个问卷结果
+	 * @param examId
+	 * @return
+	 */
+	public List<ExamResultDTO> getResultByExamId(Integer examId);
+	
+	/**
+	 * 统计问卷结果
+	 * @param examId
+	 * @return
+	 */
+	public List<ExamStatisticsDTO> statisExamResult();
 	
 	public Exam getExam(Integer examId);
 	

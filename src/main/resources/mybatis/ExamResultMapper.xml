@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cjc.mapper.exam.ResultMapper">
+  	<resultMap id="ExamStatisMap" type="cjc.dto.ExamStatisticsDTO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="examName" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="take_time" property="takeTime" jdbcType="BIGINT" />
+		<result column="total_score" property="totalScore" jdbcType="BIGINT" />
+		<result column="max_score" property="maxScore" jdbcType="BIGINT" />
+		<result column="min_score" property="minScore" jdbcType="BIGINT" />
+		<result column="num" property="num" jdbcType="BIGINT" />
+		<result column="ave_score" property="aveScore" jdbcType="DOUBLE" />
+	</resultMap>
+	<resultMap id="ExamResultMap" type="cjc.dto.ExamResultDTO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="examName" jdbcType="VARCHAR" />
+		<result column="username" property="userName" jdbcType="VARCHAR" />
+		<result column="begin_date" property="examDate" jdbcType="TIMESTAMP" />
+		<result column="score" property="score" jdbcType="BIGINT" />
+	</resultMap>
+  <select id="statisExamResult" resultMap="ExamStatisMap">
+  	SELECT  e.id,e.`name`,e.create_date,e.take_time,e.total_score, MAX(r.score) max_score ,MIN(r.score) min_score,COUNT(r.user_id) num ,AVG(r.score) ave_score from  exam_result r,exam_exam e where r.exam_id =e.id GROUP BY r.exam_id;
+  </select>
+  
+  <select id="getResultByExamId" resultMap="ExamResultMap">
+  	SELECT e.`name`,u.username,r.begin_date,r.exam_id,r.score  from  exam_result r,sys_user_login u ,exam_exam e where   r.user_id = u.id and e.id =r.exam_id and r.exam_id =#{examId, jdbcType=BIGINT};
+  </select>
+  
+  
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="cjc.entity.exam.ExamResult">
+		INSERT INTO `exam_question_opt`(`begin_date`, `end_date`, `exam_id`, `user_id`,`score`) 
+		VALUES(#{beginDate}, #{endDate}, #{examId},#{userId}, #{score})
+    </insert>
+</mapper>
