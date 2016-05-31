@@ -9,4 +9,6 @@ public interface ReserveService{
 	public List<Reserve> queryReserveByUserId(String userId);
 	
 	public Reserve  submitReserve(Reserve reserve);
+	
+	public List<Reserve> getAll();
 }

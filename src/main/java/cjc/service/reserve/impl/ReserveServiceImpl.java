@@ -30,4 +30,10 @@ public class ReserveServiceImpl implements ReserveService{
 		return reserveMapper.save(newReserve);
 	}
 
+	@Override
+	public List<Reserve> getAll() {
+		 Iterable<Reserve> res = reserveMapper.findAll();
+		 return (List<Reserve>) res;
+	}
+
 }

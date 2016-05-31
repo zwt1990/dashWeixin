@@ -10,7 +10,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,6 +18,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @EnableTransactionManagement
@@ -52,7 +52,14 @@ public class MainApplication extends WebMvcConfigurerAdapter{
         return sqlSessionFactoryBean.getObject();
     }
 	
-
+	
+	  @Override
+	  public void addViewControllers(ViewControllerRegistry registry) {
+	    registry.addViewController("/home").setViewName("home");
+	    registry.addViewController("/").setViewName("home");
+	    registry.addViewController("/profile").setViewName("profile");
+	  }
+	
 
     // 创建事务管理器2
     @Bean(name = "txManager")

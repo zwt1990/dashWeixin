@@ -8,6 +8,16 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="format-detection" content="telephone=no">
 <link rel="stylesheet" type="text/css" href="static/css/reserve.css" />
+<script type="text/javascript">
+function validateEmpty(){
+
+}
+function submitRes(){
+	if(validateEmpty()){
+		
+	}
+}
+</script>
 <title>预约</title>
 </head>
 <body>
@@ -40,7 +50,7 @@
 	</table>
 	<div class="btn_group">
 	<span class="dis_btn" >电话咨询</span>
-	<span  class="pos_btn">提交预约</span>
+	<span  class="pos_btn"  onclick="submitRes()">提交预约</span>
 	</div>
 </body>
 </html>

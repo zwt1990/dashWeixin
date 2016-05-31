@@ -18,7 +18,7 @@ function initData(){
 		     type: 'POST',
 		     url: '../exam/getQuestions' ,
 		    data: {
-		    		examId:1
+		    		examId:getQueryString('examId')
 		    } ,
 		    dataType: 'json',
 		    success: function(data){
@@ -59,14 +59,14 @@ function submitExam(){
 	if(questions.length==0){
 		return;
 	}
-	 var exma={userId:'ocOIPwJ20if-n2urZW-AEr6o7RXM',examId:1,questions:questions}
+	 var exma={userId:getQueryString('userId'),examId:getQueryString('examId'),questions:questions}
 	  $.ajax({
 		     type: 'POST',
 		     url: '../exam/submitExam' ,
 		     data:JSON.stringify(exma), 
 		    dataType:"json",      
             contentType:"application/json",  
-		    success: function(exma){
+		    success: function(data){
 			    if(!data.status){
 				    alert("请求错误");
 				    return;

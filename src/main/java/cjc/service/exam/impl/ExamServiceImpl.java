@@ -101,12 +101,12 @@ public class ExamServiceImpl implements ExamService{
 		reslut.setExamId(examId);
 		reslut.setUserId(userId);
 		reslut.setScore(getExamScore(examId, quesAnswers));
-		int resultId=resultMapper.save(reslut);
+		resultMapper.save(reslut);
 		for(QuestionDTO q: quesAnswers){
 			ResultDeatil detail=new ResultDeatil();
 			detail.setAnswer(q.getAnswer());
 			detail.setQuestionId(q.getId());
-			detail.setResultId(resultId);
+			detail.setResultId(reslut.getId());
 			resultDeatilMapper.save(detail);
 		}
 		

@@ -29,7 +29,7 @@
   
   
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="cjc.entity.exam.ExamResult">
-		INSERT INTO `exam_question_opt`(`begin_date`, `end_date`, `exam_id`, `user_id`,`score`) 
+		INSERT INTO `exam_result`(`begin_date`, `end_date`, `exam_id`, `user_id`,`score`) 
 		VALUES(#{beginDate}, #{endDate}, #{examId},#{userId}, #{score})
     </insert>
 </mapper>
