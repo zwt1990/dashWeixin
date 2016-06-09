@@ -6,6 +6,7 @@ package cjc.weixinmp;
 import java.util.Arrays;
 import java.util.Date;
 
+import cjc.utils.HttpUtils;
 import cjc.weixinmp.bean.AccessToken;
 import cjc.weixinmp.bean.SignatureInfo;
 
@@ -52,13 +53,14 @@ public class BaseSupportService {
         String url = controller.getProperty("accessToken_url", null, false);
         url = url.replaceFirst("APPID", appid).replaceFirst("APPSECRET", secert);
         try {
-            AccessToken token = controller.post(url, null, AccessToken.class, "getAccessToken");
+         //   AccessToken token = controller.post(url, null, AccessToken.class, "getAccessToken");
+            AccessToken token = HttpUtils.doPost(url, "", AccessToken.class);
             return token;
-        } catch (WeixinException e) {
+        } catch (Exception e) {
             controller.logError(e.getMessage());
-            if (e.isNeedLog()) {
-                controller.saveToFile(e.getLogFilename(), e.getLogContent());
-            }
+//            if (e.isNeedLog()) {
+//                controller.saveToFile(e.getLogFilename(), e.getLogContent());
+//            }
             throw new WeixinException(CommonUtils.getNextId() + "_ErrorAccessToken", "获取AccessToken失败", e);
         }
     }
