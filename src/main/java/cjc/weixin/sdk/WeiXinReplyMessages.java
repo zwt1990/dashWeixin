@@ -2,24 +2,15 @@ package cjc.weixin.sdk;
 
 import java.util.List;
 
-import org.apache.commons.collections4.CollectionUtils;
+import cjc.weixin.sdk.msg.ArticleMessage;
+import cjc.weixin.sdk.msg.ArticleMessage.Article;
+import cjc.weixin.sdk.msg.CustomerServerMessage;
+import cjc.weixin.sdk.msg.ReceivedMessage;
+import cjc.weixin.sdk.msg.TextMessage;
 
-import com.toowell.market.common.weixin.sdk.msg.ArticleMessage;
-import com.toowell.market.common.weixin.sdk.msg.ArticleMessage.Article;
-import com.toowell.market.common.weixin.sdk.msg.CustomerServerMessage;
-import com.toowell.market.common.weixin.sdk.msg.ReceivedMessage;
-import com.toowell.market.common.weixin.sdk.msg.TextMessage;
 
 
 public class WeiXinReplyMessages {
-	//回复图文
-	public static ArticleMessage createArticleMessage(ReceivedMessage receivedMsg) {
-		List<Article> articles = Articles.get(receivedMsg.getContent());
-		if(CollectionUtils.isEmpty(articles)) { return null; }
-
-		return createArticleMessageWithArticles(articles, receivedMsg);
-	}
-
 	//回复图文
 	public static ArticleMessage createArticleMessageWithArticles(
 				List<Article> articles, ReceivedMessage receivedMsg) {

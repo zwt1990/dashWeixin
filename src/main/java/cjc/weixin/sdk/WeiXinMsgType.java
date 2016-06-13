@@ -2,6 +2,7 @@ package cjc.weixin.sdk;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+
 public abstract class WeiXinMsgType {
 	
 	public static final String KF_MSG_TYPE="transfer_customer_service";

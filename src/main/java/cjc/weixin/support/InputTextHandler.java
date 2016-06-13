@@ -1,10 +1,9 @@
-package cjc.weixin.sdk.web;
+package cjc.weixin.support;
 
 import org.springframework.stereotype.Component;
 
-import com.toowell.market.common.weixin.sdk.msg.BaseMessage;
-import com.toowell.market.common.weixin.sdk.msg.CustomerServerMessage;
-import com.toowell.market.common.weixin.sdk.msg.ReceivedMessage;
+import cjc.weixin.sdk.msg.BaseMessage;
+import cjc.weixin.sdk.msg.ReceivedMessage;
 @Component
 public class InputTextHandler extends BaseEventHandler{
 

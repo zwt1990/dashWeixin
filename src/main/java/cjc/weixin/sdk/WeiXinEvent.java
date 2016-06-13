@@ -11,5 +11,8 @@ public abstract class WeiXinEvent {
 	public static boolean isClick(String event) {
 		return "CLICK".equals(event);
 	}
+	public static boolean isScan(String event) {
+		return "SCAN".equals(event);
+	}
 	
 }
