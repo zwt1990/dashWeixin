@@ -181,14 +181,32 @@ public class DateUtil {
 	            return "";  
 	        }  
 	    }  
-	  
+	    /** 
+	     * 比较两个日期相差的秒数
+	     * @author dylan_xu 
+	     * @date Mar 11, 2012 
+	     * @param date1 
+	     * @param date2 
+	     * @return 
+	     */  
+	    public static int getMarginSeconds(Date currDate, Date oldDate) {  
+	        try {  
+	            long l = currDate.getTime() - oldDate.getTime();  
+	            return (int) (l / 1000);
+	        } catch (Exception e) {  
+	            logger.debug("DateUtil.getMarginSeconds():" + e.toString());  
+	            return 0;  
+	        }  
+	    }  
+	    
+	    
 	    /** 
 	     * 比较两个日期相差的天数 
 	     * @author dylan_xu 
 	     * @date Mar 11, 2012 
 	     * @param date1 
 	     * @param date2 
-	     * @return 
+	     * @return getMargin
 	     */  
 	    public static int getMargin(String date1, String date2) {  
 	        int margin;  

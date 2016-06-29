@@ -27,7 +27,7 @@ function initData(){
 		    { "data": "num" },
 		    { "data": "id",
 	    	 "render": function ( data, type, full, meta ) {
-	    	      return '<div class=\"fa fa-search-plus\" style=\"cursor:pointer\" onclick=\"showDetailResult('+data+')\"></div>';
+	    	      return '<div class=\"fa fa-search-plus\" data-toggle=\"modal\"  data-target=\"#menuModal\"   style=\"cursor:pointer\" onclick=\"showDetailResult('+data+')\"></div>';
 	    	    }
 		    }
 		  ]

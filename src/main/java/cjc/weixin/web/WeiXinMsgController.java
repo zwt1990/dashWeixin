@@ -20,6 +20,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.persistence.jaxb.JAXBMarshaller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,8 +44,9 @@ public class WeiXinMsgController {
 
 	
 	
-	@Autowired
-	private JAXBMarshaller marshaller;
+//	@Autowired
+//	@Qualifier(value="jaxb2Marshaller")
+//	private Jaxb2Marshaller marshaller;
 	@Autowired
 	private MenuClickHandler menuClickHandler;
 	@Autowired
@@ -121,10 +124,11 @@ public class WeiXinMsgController {
 	}
 	
 	private ReceivedMessage parseUserInput(String userInput) throws JAXBException {
-		Unmarshaller unmarshaller = marshaller.getJaxbContext().createUnmarshaller();
-		Source xmlInputSource = new StreamSource(new StringReader(userInput));
-		ReceivedMessage receivedMsg = unmarshaller.unmarshal(xmlInputSource, ReceivedMessage.class).getValue();
-		return receivedMsg;
+//		Unmarshaller unmarshaller = marshaller.getJaxbContext().createUnmarshaller();
+//		Source xmlInputSource = new StreamSource(new StringReader(userInput));
+//		ReceivedMessage receivedMsg = unmarshaller.unmarshal(xmlInputSource, ReceivedMessage.class).getValue();
+//		return receivedMsg;
+		return null;
 	}
 	
 	private String sendXMLToWeiXin(Object message, Map<String,String> params) throws JAXBException {
@@ -132,7 +136,7 @@ public class WeiXinMsgController {
 			return StringUtils.EMPTY;
 		}
 		StringWriter strWriter = new StringWriter();
-		marshaller.marshal(message, new StreamResult(strWriter));
+	//	marshaller.marshal(message, new StreamResult(strWriter));
 		System.out.println(strWriter.toString());
 		return WeiXinSignUtil.encryptMsg(strWriter.toString(), params.get("nonce"));
 	}

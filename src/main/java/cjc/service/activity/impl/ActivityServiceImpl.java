@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 import cjc.entity.activity.Activity;
 import cjc.mapper.activity.ActivityMapper;
 import cjc.service.activity.ActivityService;
-import cjc.service.activity.Lottery;
 import cjc.service.activity.TemplateLottery;
-import cjc.utils.State.LotteryStateEnum;
 
 @Service("activityService")
 public class ActivityServiceImpl implements ActivityService{

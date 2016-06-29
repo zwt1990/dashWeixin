@@ -19,7 +19,6 @@ import cjc.dto.QuestionDTO;
 import cjc.entity.exam.Exam;
 import cjc.service.exam.ExamService;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 @Controller
