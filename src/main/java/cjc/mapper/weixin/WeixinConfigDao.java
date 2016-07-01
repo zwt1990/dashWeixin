@@ -10,4 +10,5 @@ public interface WeixinConfigDao extends CrudRepository<WeixinConfig, Serializab
 
 	public WeixinConfig findByAppId(String appId);
 	
+	public WeixinConfig findByOriginalId(String originalId);
 }

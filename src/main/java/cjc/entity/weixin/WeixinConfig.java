@@ -28,6 +28,9 @@ public class WeixinConfig {
 	@Column(name = "original_id")
 	private String originalId;
 
+	@Column(name = "encoding_aeskey")
+	private String encodingAesKey;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -75,5 +78,12 @@ public class WeixinConfig {
 	public void setOriginalId(String originalId) {
 		this.originalId = originalId;
 	}
-	
+
+	public String getEncodingAesKey() {
+		return encodingAesKey;
+	}
+
+	public void setEncodingAesKey(String encodingAesKey) {
+		this.encodingAesKey = encodingAesKey;
+	}
 }

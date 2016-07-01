@@ -26,13 +26,6 @@ public class WebInterceptor  implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse response,
 			Object arg2) throws Exception {
-		HttpSession session= req.getSession();
-		String userId=(String) session.getAttribute("userId");
-		System.out.println("userId-----------------------"+userId);
-		if(StringUtils.isEmpty(userId)){
-			 response.sendRedirect(req.getContextPath() + "/sys/login.html");
-			 return false;
-		}
 		return true;
 	}
 
