@@ -1,4 +1,4 @@
-package cjc.handler;
+/*package cjc.handler;
 
 import java.io.IOException;
 
@@ -29,12 +29,16 @@ public class WebResouceFilter implements Filter {
 			System.out.println("进来过滤器---");
 			HttpServletRequest req= (HttpServletRequest) request;
 			HttpServletResponse rsp= (HttpServletResponse) response;
-			HttpSession session= req.getSession();
-			String userId=(String) session.getAttribute("userId");
-			if(StringUtils.isEmpty(userId)){
-				rsp.sendRedirect(req.getContextPath()+"/login.html");
-					 return ;
-				}
+			req.setCharacterEncoding("UTF-8");
+//			if(req.getRequestURI().contains(".html")){
+//				HttpSession session= req.getSession();
+//				String userId=(String) session.getAttribute("userId");
+//				if(StringUtils.isEmpty(userId)){
+//					rsp.sendRedirect(req.getContextPath()+"/login.html");
+//						 return ;
+//					}
+//				chain.doFilter(request, response);
+//			}
 			chain.doFilter(request, response);
 	}
 
@@ -45,3 +49,4 @@ public class WebResouceFilter implements Filter {
 
 
 }
+*/

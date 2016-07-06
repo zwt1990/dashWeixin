@@ -9,4 +9,11 @@
    <select id="getAllUsers" resultType="cjc.entity.sys.UserLogin">
     select id, username,password from sys_user_login ;
   </select>
+  
+  <select id="getMenusByRoleId" resultType="cjc.entity.sys.Menu">
+  	SELECT m.id,m.name,m.url,m.parent_id,m.level from sys_menu m,sys_role r,sys_role_menu  rm where m.id =rm.role_id and r.id = rm.menu_id WHERE role_id=#{roleId, jdbcType=BIGINT}
+  </select>
+  <select id="getRolesByUserId" resultType="cjc.entity.sys.Role">
+  	SELECT r.id,r.name,r.type from sys_user u,sys_role r,sys_user_role  ur where r.id =ur.role_id and u.id = ur.user_id WHERE user_id=#{userId, jdbcType=BIGINT}
+  </select>
 </mapper>

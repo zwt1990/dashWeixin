@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Title</title>
+    <link href="../sys/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="out/res/swiper/css/swiper.css" rel="stylesheet">
+    <link href="static/css/index_swiper.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <!--template-->
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+</div>
+
+<section class="container-fluid">
+    <div class="row all-category-container">
+        <!---->
+    </div>
+    <div class="row all-product-view">
+        <div class="text-center category-name-text">分类名</div>
+        <div class="all-product-container">
+            <!---->
+        </div>
+    </div>
+</section>
+
+
+<script id="sliderTemplate" type="text/template">
+    <div class="swiper-slide">
+        <a href="<%=link%>">
+            <img src="<%=sliderImageUrl%>" class="img-responsive">
+        </a>
+    </div>
+</script>
+
+<script id="categoryItemTemplate" type="text/template">
+    <div class="category-container">
+        <div class="img-container center-block">
+            <a href="<%=link%>">
+                <img src="<%=imageUrl%>" class="img-responsive img-circle">
+            </a>
+        </div>
+        <span><%=text%></span>
+    </div>
+</script>
+
+<script id="twoProductTemplate" type="text/template">
+    <div class="tow-product">
+        <div class="product-content1">
+            <%=content1%>
+        </div>
+        <div class="product-gap"></div>
+        <div class="product-content2">
+            <%=content2%>
+        </div>
+    </div>
+</script>
+
+<script id="productItemTemplate" type="text/template">
+    <div class="product-item-img">
+        <a href="<%=link%>">
+            <img src="<%=imageUrl%>" class="img-responsive">
+        </a>
+    </div>
+    <div class="product-info">
+        <span class="product-name"><%=productName%></span>
+        <div class="clearfix">
+            <div class="pull-left">
+                <span class="price">¥<%=price%></span>
+            </div>
+            <div class="pull-right">
+                <span class="detail-description"><%=description%></span>
+            </div>
+        </div>
+    </div>
+</script>
+<script src="../sys/static/bootstrap/js/jquery-2.1.1.min.js"></script>
+<script src="../sys/static/js/underscore.js"></script>
+ <script src="../sys/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="out/res/swiper/js/swiper.jquery.js"></script>
+<script src="static/js/index_swiper.js"></script>
+
+
+</body>
+</html>

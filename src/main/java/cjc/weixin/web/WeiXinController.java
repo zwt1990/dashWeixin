@@ -3,7 +3,6 @@ package cjc.weixin.web;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,16 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cjc.controller.BaseController;
 import cjc.controller.common.H5Response;
 import cjc.dto.MenuButton;
-import cjc.dto.QuestionDTO;
+import cjc.entity.weixin.PhotoConfig;
 import cjc.entity.weixin.WeixinConfig;
-import cjc.entity.weixin.AlbumConfig;
 import cjc.service.exam.ExamService;
 import cjc.service.weixin.WechatService;
 import cjc.weixin.sdk.CustomMenu.Button;
@@ -84,10 +81,11 @@ public class WeiXinController extends BaseController{
 	@RequestMapping("/weixin/uploadImgs")
 	@ResponseBody
 	public H5Response uploadImgs(HttpServletRequest request, MultipartFile file,String url,Integer category,Integer configId) throws WeixinException, IOException {
-		AlbumConfig imgConfig=wechatService.insertImgConfig(configId,category,url,"/static/img/upload/"+new Date().getTime() + new String(file.getOriginalFilename().getBytes(),"UTF-8"));
+		PhotoConfig imgConfig=wechatService.insertImgConfig(configId,category,url,"/img/upload/"+new Date().getTime() + new String(file.getOriginalFilename().getBytes(),"UTF-8"));
 		 //拿到输出流，同时重命名上传的文件  
-		String filePath = request.getSession().getServletContext()
-                .getRealPath("/") +"sys/"+imgConfig.getPath() ;
+		String baseUrl= request.getSession().getServletContext()
+                .getRealPath("/")+"sys/static";//TODO 后面可修改nigux映射到其他盘
+		String filePath =baseUrl+imgConfig.getPath() ;
          FileOutputStream os = new FileOutputStream(filePath);  
          //拿到上传文件的输入流  
          FileInputStream in = (FileInputStream) file.getInputStream();  
@@ -106,15 +104,15 @@ public class WeiXinController extends BaseController{
 	@ResponseBody
 	public JSONObject getImgconfigs(Integer configId,Integer category ) throws WeixinException {
 			JSONObject json=new JSONObject();
-			List<AlbumConfig>  wxImgconfigs=wechatService.getUsefulImgs(configId,category);
+			List<PhotoConfig>  wxImgconfigs=wechatService.getUsefulImgs(configId,category);
 			if(category!=null){
 				json.put("imgs", wxImgconfigs);
 				return json;
 			}
-			List<AlbumConfig> cslImgs=new ArrayList<AlbumConfig>();
-			List<AlbumConfig> menuImgs=new ArrayList<AlbumConfig>();
-			List<AlbumConfig> detailImgs=new ArrayList<AlbumConfig>();
-			for(AlbumConfig img:wxImgconfigs){
+			List<PhotoConfig> cslImgs=new ArrayList<PhotoConfig>();
+			List<PhotoConfig> menuImgs=new ArrayList<PhotoConfig>();
+			List<PhotoConfig> detailImgs=new ArrayList<PhotoConfig>();
+			for(PhotoConfig img:wxImgconfigs){
 				if(img.getCategory()==1){
 					cslImgs.add(img);
 				}

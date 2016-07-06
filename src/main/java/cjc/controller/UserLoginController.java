@@ -13,35 +13,51 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cjc.controller.common.H5Response;
-import cjc.entity.sys.UserLogin;
-import cjc.service.UserLoginService;
+import cjc.dto.MenuDTO;
+import cjc.entity.sys.User;
+import cjc.service.sys.UserAuthorityService;
+import cjc.utils.Md5Util;
+
+import com.alibaba.fastjson.JSONObject;
 
 @Controller
 @RequestMapping(value="sys/")
 public class UserLoginController extends BaseController{
 
 	@Autowired
-	private UserLoginService	userLoginService;
+	private UserAuthorityService	userAuthorityService;
 	
 	
-	@RequestMapping(value = "login2")
+	@RequestMapping(value = "login")
 	@ResponseBody
-	public H5Response queryList(HttpServletRequest request,
-			HttpServletResponse response,UserLogin userLogin) throws IOException {
-		List<UserLogin> logins=userLoginService.findByUsernameAndPassword(userLogin.getUsername(), userLogin.getPassword());
-		if(logins==null||logins.size()==0){
-			 return failed("用户名或密码不正确");
+	public JSONObject queryList(HttpServletRequest request,
+			HttpServletResponse response,String username,String password) throws IOException {
+		String Md5pass=Md5Util.getMD5String(password);
+		User user=userAuthorityService.queryUsers(username, Md5pass);
+		JSONObject json=new JSONObject();
+		if(user==null){
+			json.put("code", -2);
+			json.put("msg", "用户名或密码不正确");
+			 return json;
 		}
-		HttpSession session=request.getSession();
-		session.setAttribute("userId",logins.get(0).getId());
-		 return succeed("登录成功");
+		json.put("code", 0);
+		return json;
+		
 	}
 	
-	@RequestMapping(value = "getAllUsers")
+	@RequestMapping(value = "getMainInfo")
 	@ResponseBody
-	public H5Response getAllUsers(HttpServletRequest request,
+	public H5Response getMainInfo(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		List<UserLogin> logins=userLoginService.getAllUsers();
-		return succeed(logins);
+		HttpSession session=request.getSession();
+		Integer userId=(Integer) session.getAttribute("userId");
+		userId=1;
+		User user=userAuthorityService.getUser(userId);
+		List<MenuDTO> muens=userAuthorityService.getMenusByUserId(userId);
+		JSONObject json=new JSONObject();
+		json.put("code",0);
+		json.put("user", user);
+		json.put("menu", muens);
+		return succeed(json);
 	}
 }

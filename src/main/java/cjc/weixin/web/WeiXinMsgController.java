@@ -1,13 +1,10 @@
 package cjc.weixin.web;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -25,7 +22,6 @@ import cjc.service.weixin.WechatService;
 import cjc.utils.JaxbXmlUtil;
 import cjc.weixin.sdk.WeiXinEvent;
 import cjc.weixin.sdk.WeiXinMsgType;
-import cjc.weixin.sdk.WeiXinReplyMessages;
 import cjc.weixin.sdk.msg.ReceivedMessage;
 import cjc.weixin.support.InputTextHandler;
 import cjc.weixin.support.MenuClickHandler;

@@ -18,12 +18,12 @@
      <link rel="stylesheet" type="text/css" href="static/bootstrap/css/demo/webuploader-demo.css">
     <script type="text/template" id="carousel-temp">
 		<%_.each(obj, function(item, index) { %>
-			<div class = "<%= index == 0 ? "item active " : "item "%>" > <img alt = "image"class = "img-responsive"src = "http://127.0.0.1:8090/dasx/sys<%=item.path%>" > <div class = "carousel-caption" > <p > 链接地址： <%=item.url%></p></div > </div>
+			<div class = "<%= index == 0 ? "item active " : "item "%>" > <img alt = "image"class = "img-responsive"src = "../static<%=item.path%>" > <div class = "carousel-caption" > <p > 链接地址： <%=item.url%></p></div > </div>
 			<%})%>
     </script>
     <script type="text/template" id="box-temp">
 		<%_.each(obj, function(item, index) { %>
-        <a class = "fancybox"href = "http://127.0.0.1:8090/dasx/sys<%=item.path%>"title = "链接地址：<%=item.url%>" > <img alt = "image"src = "http://127.0.0.1:8090/dasx/sys<%=item.path%>" / ></a>
+        <a class = "fancybox"href = "../static<%=item.path%>"title = "链接地址：<%=item.url%>" > <img alt = "image"src =../static"<%=item.path%>" / ></a>
 			<%})%>
     </script>
   </head>

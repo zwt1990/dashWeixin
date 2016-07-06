@@ -12,8 +12,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "weixin_album_config")
-public class AlbumConfig {
+@Table(name = "weixin_photo_config")
+public class PhotoConfig {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

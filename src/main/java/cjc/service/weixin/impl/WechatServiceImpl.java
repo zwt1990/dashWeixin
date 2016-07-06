@@ -3,16 +3,14 @@ package cjc.service.weixin.impl;
 import java.util.Date;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cjc.entity.weixin.PhotoConfig;
 import cjc.entity.weixin.WeixinConfig;
-import cjc.entity.weixin.AlbumConfig;
 import cjc.entity.weixin.WeixinReply;
 import cjc.mapper.weixin.WeixinConfigDao;
-import cjc.mapper.weixin.WeixinImgConfigDao;
+import cjc.mapper.weixin.WeixinPhotoConfigDao;
 import cjc.mapper.weixin.WeixinReplyDao;
 import cjc.service.weixin.WechatService;
 
@@ -23,7 +21,7 @@ public class WechatServiceImpl implements  WechatService{
 	private WeixinConfigDao weixinConfigDao;
 	
 	@Autowired
-	private WeixinImgConfigDao	weixinImgConfigDao;
+	private WeixinPhotoConfigDao	weixinImgConfigDao;
 	
 	@Autowired
 	private WeixinReplyDao weixinReplyDao;
@@ -43,8 +41,8 @@ public class WechatServiceImpl implements  WechatService{
 		return (List<WeixinConfig>) configs;
 	}
 
-	public AlbumConfig insertImgConfig(Integer wxConfigId,Integer category,String url,String path) {
-		AlbumConfig imgConfig=new AlbumConfig();
+	public PhotoConfig insertImgConfig(Integer wxConfigId,Integer category,String url,String path) {
+		PhotoConfig imgConfig=new PhotoConfig();
 		imgConfig.setCategory(category);
 		imgConfig.setConfigId(wxConfigId);
 		imgConfig.setPath(path);
@@ -61,7 +59,7 @@ public class WechatServiceImpl implements  WechatService{
 	}
 
 	@Override
-	public List<AlbumConfig> getUsefulImgs(Integer configId,Integer category) {
+	public List<PhotoConfig> getUsefulImgs(Integer configId,Integer category) {
 		if(category!=null){
 			return weixinImgConfigDao.findByConfigIdAndStatusAndCategory(configId, 1,category);
 		}

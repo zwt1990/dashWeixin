@@ -2,8 +2,8 @@ package cjc.service.weixin;
 
 import java.util.List;
 
+import cjc.entity.weixin.PhotoConfig;
 import cjc.entity.weixin.WeixinConfig;
-import cjc.entity.weixin.AlbumConfig;
 import cjc.entity.weixin.WeixinReply;
 
 public interface WechatService {
@@ -16,11 +16,11 @@ public interface WechatService {
 	
 	public List<WeixinConfig> allWeixinConfigs();
 	
-	public AlbumConfig insertImgConfig(Integer wxConfigId,Integer category,String url,String path);
+	public PhotoConfig insertImgConfig(Integer wxConfigId,Integer category,String url,String path);
 	
 	public void deleteImgConfig(Integer id);
 	
-	public List<AlbumConfig> getUsefulImgs(Integer configId,Integer category);
+	public List<PhotoConfig> getUsefulImgs(Integer configId,Integer category);
 	
 	public WeixinConfig createWXconfig(WeixinConfig weixinConfig);
 	

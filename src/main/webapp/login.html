@@ -5,23 +5,30 @@
 <!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>大四喜后台登录</title>
+<title>尚博网络台登录</title>
 <link rel="stylesheet" type="text/css" href="sys/static/css/login.css" />
+  <link href="sys/static/bootstrap/css/plugins/toastr/toastr.min.css" rel="stylesheet">
  <script src="sys/static/bootstrap/js/jquery-2.1.1.min.js"></script>
+  <script src="sys/static/bootstrap/js/plugins/toastr/toastr.min.js"></script>
+  <script src="sys/static/js/common.js"></script>
 <script type="text/javascript">
 
 function login(){
 $.ajax({
      type: 'POST',
-     url: '../sys/' ,
+     url: 'sys/login' ,
     data: {
     	username:$("#username").val(),
     	password:$("#password").val()
     } ,
+    dataType: 'json',
     success: function(data){
-    	location.href="index.html"
-    } ,
-    dataType: 'text'
+    if(data.code!=0){
+   		showErrMsg(data.msg);
+    }else{
+    	location.href="sys/mainPG.html"
+    }
+    } 
 
 });
 }
@@ -33,16 +40,16 @@ $.ajax({
 <body>
 <div class="container">
 	<section id="content">
-		<form action="">
+		<form >
 			<h1>系统登录</h1>
 			<div>
-				<input type="text" placeholder="手机/邮箱" required="" id="username" />
+				<input type="text" placeholder="手机/邮箱" id="username" />
 			</div>
 			<div>
-				<input type="password" placeholder="密码" required="" id="password" />
+				<input type="password" placeholder="密码"  id="password" />
 			</div>
 			<div>
-				<input type="submit" value="登 录" onclick="login()"/>
+				<input type="button" value="登 录" onclick="login()"/>
 				<a href="#">忘记密码?</a>
 				<a href="#">注册</a>
 			</div>
