@@ -34,7 +34,7 @@
 <script id="sliderTemplate" type="text/template">
     <div class="swiper-slide">
         <a href="<%=link%>">
-            <img src="<%=sliderImageUrl%>" class="img-responsive">
+            <img src="<%=sliderImageUrl%>" class="img-responsive w100">
         </a>
     </div>
 </script>
@@ -43,7 +43,7 @@
     <div class="category-container">
         <div class="img-container center-block">
             <a href="<%=link%>">
-                <img src="<%=imageUrl%>" class="img-responsive img-circle">
+                <img src="<%=imageUrl%>" class="img-responsive img-circle category-img">
             </a>
         </div>
         <span><%=text%></span>
@@ -65,10 +65,10 @@
 <script id="productItemTemplate" type="text/template">
     <div class="product-item-img">
         <a href="<%=link%>">
-            <img src="<%=imageUrl%>" class="img-responsive">
+            <img src="<%=imageUrl%>" class="img-responsive w100">
         </a>
     </div>
-    <div class="product-info">
+    <!--<div class="product-info">
         <span class="product-name"><%=productName%></span>
         <div class="clearfix">
             <div class="pull-left">
@@ -78,7 +78,7 @@
                 <span class="detail-description"><%=description%></span>
             </div>
         </div>
-    </div>
+    </div>-->
 </script>
 <script src="../sys/static/bootstrap/js/jquery-2.1.1.min.js"></script>
 <script src="../sys/static/js/underscore.js"></script>

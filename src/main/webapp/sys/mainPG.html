@@ -15,7 +15,7 @@
     <link href="static/bootstrap/css/style.css" rel="stylesheet">
     <script type="text/template" id="menus-temp">
 		<%_.each(obj, function(item, index) { %>
-     		<li> <a > <i class="fa fa-files-o"></i> <span class="nav-label"><%=e.name%></span> <span class="fa arrow"></span> </a> 
+     		<li class=<%= index == 0 ? "active " : ""%>> <a da> <i class="fa fa-files-o"></i> <span class="nav-label"><%=item.name%></span> <span class="fa arrow"></span> </a> 
     				  <ul class="nav nav-second-level"> 
 					 <%_.each(item.menus,function(e){%>
      				  <li data-url="<%=e.url%>"> <a><%=e.name%></a> </li> 
@@ -42,7 +42,9 @@
     </ul> 
    </div> 
   </nav> 
-		<iframe></iframe>
+   <div id="page-wrapper" class="gray-bg dashbard-1">
+		<iframe src="wxConfig.html" style="width: 100%;height: 100%;"></iframe>
+		</div>
     </div>
     <!-- Mainly scripts -->
     <script src="static/bootstrap/js/jquery-2.1.1.min.js"></script>
@@ -52,7 +54,8 @@
     <!-- Custom and plugin javascript -->
     <script src="static/bootstrap/js/hplus.js"></script>
     <script src="static/bootstrap/js/plugins/pace/pace.min.js"></script>
-    <script src="static/js/mainPG.js"></script>
+    
+    <script src="static/js/underscore.js"></script>
     <script src="static/js/common.js"></script>
     <script src="static/js/mainPG.js"></script>
   </body>

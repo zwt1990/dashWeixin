@@ -10,7 +10,7 @@ function initData(){
     	} ,
    dataType: 'json',
    success: function(data){
-	   var html_menus=_.template($("#menus-temp").html(),data.menus);
+	   var html_menus=_.template($("#menus-temp").html(),data.menu);
 	   $("#side-menu").append(html_menus);
    }
 	});

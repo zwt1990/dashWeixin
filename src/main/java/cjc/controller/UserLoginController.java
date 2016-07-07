@@ -47,7 +47,7 @@ public class UserLoginController extends BaseController{
 	
 	@RequestMapping(value = "getMainInfo")
 	@ResponseBody
-	public H5Response getMainInfo(HttpServletRequest request,
+	public JSONObject getMainInfo(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		HttpSession session=request.getSession();
 		Integer userId=(Integer) session.getAttribute("userId");
@@ -58,6 +58,6 @@ public class UserLoginController extends BaseController{
 		json.put("code",0);
 		json.put("user", user);
 		json.put("menu", muens);
-		return succeed(json);
+		return json;
 	}
 }

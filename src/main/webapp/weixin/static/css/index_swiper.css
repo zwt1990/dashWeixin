@@ -17,6 +17,14 @@ body {
     height: 160px;
 }
 
+a {
+    width: 100%;
+}
+
+.w100 {
+    min-width: 100%;
+}
+
 .swiper-slide {
     text-align: center;
     font-size: 18px;
@@ -52,6 +60,11 @@ body {
     width: 40px;
     height: 40px;
     margin-bottom: 7px;
+}
+
+.category-img {
+    width: 40px;
+    height: 40px;
 }
 
 /**/
