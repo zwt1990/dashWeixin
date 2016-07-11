@@ -131,5 +131,5 @@
     }
 
     fetchDataFromServer();
-
+    
 }(window);

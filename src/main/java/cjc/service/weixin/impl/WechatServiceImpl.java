@@ -3,9 +3,11 @@ package cjc.service.weixin.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cjc.dto.WechatConfig;
 import cjc.entity.weixin.PhotoConfig;
 import cjc.entity.weixin.WeixinConfig;
 import cjc.entity.weixin.WeixinReply;
@@ -41,7 +43,7 @@ public class WechatServiceImpl implements  WechatService{
 		return (List<WeixinConfig>) configs;
 	}
 
-	public PhotoConfig insertImgConfig(Integer wxConfigId,Integer category,String url,String path) {
+	public PhotoConfig insertImgConfig(Integer wxConfigId,Integer category,String url,String path,String name) {
 		PhotoConfig imgConfig=new PhotoConfig();
 		imgConfig.setCategory(category);
 		imgConfig.setConfigId(wxConfigId);
@@ -49,6 +51,7 @@ public class WechatServiceImpl implements  WechatService{
 		imgConfig.setUrl(url);
 		imgConfig.setCreateTime(new Date());
 		imgConfig.setStatus(1);
+		imgConfig.setName(name);
 		return weixinImgConfigDao.save(imgConfig);
 		
 	}
@@ -76,8 +79,30 @@ public class WechatServiceImpl implements  WechatService{
 		return weixinConfigDao.findOne(id);
 	}
 
-	public WeixinReply getReplyByEvent(Integer configId, Integer eventType) {
-		return weixinReplyDao.findByConfigIdAndEventType(configId, eventType);
+	public WechatConfig getReplyByConfig(Integer configId) {
+		return weixinReplyDao.queryReplyByconfig(configId);
+	}
+
+	@Override
+	public void updateReply(Integer configId,String welContext,String replyContext,boolean openCustomer) {
+		WeixinReply weixinReply=weixinReplyDao.get(configId);
+		if(weixinReply==null){
+			weixinReply=new WeixinReply();
+			weixinReply.setCustomerFlag(openCustomer);
+			weixinReply.setReplyContext(replyContext);
+			weixinReply.setWelContext(welContext);
+			weixinReply.setConfigId(configId);
+			weixinReplyDao.save(weixinReply);
+		}
+		weixinReply.setCustomerFlag(openCustomer);
+		weixinReply.setReplyContext(replyContext);
+		weixinReply.setWelContext(welContext);
+		weixinReplyDao.update(weixinReply);
+	}
+
+	@Override
+	public List<WechatConfig> getReplyBys() {
+		return weixinReplyDao.getReplys();
 	}
 	
 }

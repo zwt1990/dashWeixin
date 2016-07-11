@@ -93,7 +93,6 @@ public class ExamServiceImpl implements ExamService{
 		return score;
 	}
 
-	@Transactional(value="txManager")
 	public void submitExam(String userId, Integer examId,List<QuestionDTO> quesAnswers) {
 		ExamResult reslut=new ExamResult();
 		reslut.setBeginDate(DateUtil.getDate());
@@ -115,7 +114,6 @@ public class ExamServiceImpl implements ExamService{
 		
 	}
 
-	@Transactional(value="txManager")
 	public void createExamQues(ExamDTO exam) {
 		List<QuestionDTO> questions=exam.getQuestions();
 		for(QuestionDTO q:questions){

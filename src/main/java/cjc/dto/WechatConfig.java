@@ -1,50 +1,37 @@
-package cjc.entity.weixin;
+package cjc.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "weixin_reply")
-public class WeixinReply {
+public class WechatConfig {
 	public static final Integer FLAG_OPEN=1;
 	
 	public static final Integer FLAG_CLOSE=0;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private String appId;
 	
-	@Column(name = "wel_context")
+	private String name;
+	
 	private String  welContext;
 	
-	@Column(name = "reply_context")
 	private String replyContext;
 	
-	@Column(name = "customer_flag")
 	private Integer customerFlag;
 	
-	@Column(name = "config_id")
 	private Integer configId;
 
-	
-	public Integer getId() {
-		return id;
+	public String getAppId() {
+		return appId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setAppId(String appId) {
+		this.appId = appId;
 	}
 
-	public Integer getConfigId() {
-		return configId;
+	public String getName() {
+		return name;
 	}
 
-	public void setConfigId(Integer configId) {
-		this.configId = configId;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getWelContext() {
@@ -71,4 +58,11 @@ public class WeixinReply {
 		this.customerFlag=openCustomer?FLAG_OPEN:FLAG_CLOSE;
 	}
 
+	public Integer getConfigId() {
+		return configId;
+	}
+
+	public void setConfigId(Integer configId) {
+		this.configId = configId;
+	}
 }

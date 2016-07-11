@@ -15,3 +15,8 @@ function initData(){
    }
 	});
 }
+
+function showPage(url){
+	$("#myFrame").attr("src","url");
+	
+}

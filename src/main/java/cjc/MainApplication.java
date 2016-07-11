@@ -1,8 +1,5 @@
 package cjc;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManagerFactory;
-
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -17,22 +14,17 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-@EnableTransactionManagement
 @EnableAutoConfiguration
 @SpringBootApplication
 @ComponentScan
 @MapperScan("cjc.mapper")
 @ServletComponentScan
-public class MainApplication extends SpringBootServletInitializer{
+public class MainApplication extends SpringBootServletInitializer {
 
 	public static final String CONFIG_ENV = "CONFIG_ENV";
 	
-    @Resource(name="txManager")
-    private PlatformTransactionManager txManager;
+//    @Resource(name="txManager")
+//    private PlatformTransactionManager txManager;
 	
 	@Bean
     @ConfigurationProperties(prefix="spring.datasource")
@@ -52,24 +44,14 @@ public class MainApplication extends SpringBootServletInitializer{
         return sqlSessionFactoryBean.getObject();
     }
 	
-	
-
-    // 创建事务管理器2
-    @Bean(name = "txManager")
-    public PlatformTransactionManager txManager(EntityManagerFactory factory) {
-        return new JpaTransactionManager(factory);
-    }
-
-    // 实现接口 TransactionManagementConfigurer 方法，其返回值代表在拥有多个事务管理器的情况下默认使用的事务管理器
-    public PlatformTransactionManager annotationDrivenTransactionManager() {
-        return txManager;
-    }
-	
-	
- 	@Bean
-    public PlatformTransactionManager txManager() {
-        return new DataSourceTransactionManager(dataSource());
-    }
+//	 @Bean(name = "txManager")
+//    public PlatformTransactionManager txManager(EntityManagerFactory factory) {
+//        return new JpaTransactionManager(factory);
+//    }
+//	@Override
+//	public PlatformTransactionManager annotationDrivenTransactionManager() {
+//		return txManager;
+//	}
  	
      protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
          return application.sources(MainApplication.class);
@@ -79,5 +61,7 @@ public class MainApplication extends SpringBootServletInitializer{
 	SpringApplication.run(MainApplication.class, args);
 	   
 	}
+
+	
 
 }

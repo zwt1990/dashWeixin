@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cjc.mapper.weixin.WeixinReplyDao">
+	
+	<resultMap id="weixinReply" type="cjc.dto.WechatConfig">
+		<id column="app_id" property="appId" jdbcType="BIGINT" />
+		<result column="wel_context" property="welContext" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="reply_context" property="replyContext" jdbcType="VARCHAR" />
+		<result column="customer_flag" property="customerFlag" jdbcType="BIGINT" />
+		<result column="config_id" property="configId" jdbcType="BIGINT" />
+	</resultMap>
+		<resultMap id="reply" type="cjc.entity.weixin.WeixinReply">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="wel_context" property="welContext" jdbcType="VARCHAR" />
+		<result column="reply_context" property="replyContext" jdbcType="VARCHAR" />
+		<result column="customer_flag" property="customerFlag" jdbcType="BIGINT" />
+		<result column="config_id" property="configId" jdbcType="BIGINT" />
+	</resultMap>
+	
+ <select id="getReplys" resultMap="weixinReply">
+ 	select c.app_id ,c.name,r.wel_context,r.reply_context,r.customer_flag,r.config_id from weixin_reply r ,weixin_config c where c.id = r.config_id
+  </select>
+  
+  <select id="get" resultMap="reply">
+ 	select r.id ,r.wel_context,r.reply_context,r.customer_flag,r.config_id from weixin_reply r where r.config_id=#{configId,jdbcType=BIGINT}
+  </select>
+  <select id="queryReplyByconfig" resultMap="weixinReply">
+ 	select c.app_id ,c.name,r.wel_context,r.reply_context,r.customer_flag,r.config_id from weixin_reply r ,weixin_config c where c.id = r.config_id And r.config_id=#{configId,jdbcType=BIGINT}
+  </select>
+  
+   <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="cjc.entity.weixin.WeixinReply">
+		INSERT INTO `weixin_reply`(`wel_context`, `reply_context`, `customer_flag`, `config_id`) 
+		VALUES(#{welContext}, #{replyContext}, #{customerFlag},#{configId})
+    </insert>
+    
+  	<update id="update" parameterType="cjc.entity.weixin.WeixinReply">  
+        update weixin_reply set wel_context = #{welContext},   reply_context = #{replyContext} , customer_flag = #{customerFlag}    where id = #{id}  
+    </update>  
+  
+</mapper>

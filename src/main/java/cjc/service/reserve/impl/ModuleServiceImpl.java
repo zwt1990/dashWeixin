@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cjc.dto.ModuleDictDTO;
-import cjc.entity.reserve.Dictionary;
-import cjc.entity.reserve.UserDict;
 import cjc.mapper.reserve.ModDictMapper;
 import cjc.mapper.reserve.UserDictMapper;
 import cjc.service.reserve.ModuleService;

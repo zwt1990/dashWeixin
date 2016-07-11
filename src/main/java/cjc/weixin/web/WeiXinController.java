@@ -20,9 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 import cjc.controller.BaseController;
 import cjc.controller.common.H5Response;
 import cjc.dto.MenuButton;
+import cjc.dto.WechatConfig;
 import cjc.entity.weixin.PhotoConfig;
 import cjc.entity.weixin.WeixinConfig;
-import cjc.service.exam.ExamService;
+import cjc.entity.weixin.WeixinReply;
 import cjc.service.weixin.WechatService;
 import cjc.weixin.sdk.CustomMenu.Button;
 import cjc.weixin.sdk.CustomMenu.CustomButton;
@@ -37,8 +38,6 @@ public class WeiXinController extends BaseController{
 	@Autowired
 	private WechatService wechatService;
 	
-	@Autowired
-	private ExamService	examService;
 	
 	@RequestMapping("/weixin/updateBtn")
 	@ResponseBody
@@ -80,8 +79,8 @@ public class WeiXinController extends BaseController{
 	
 	@RequestMapping("/weixin/uploadImgs")
 	@ResponseBody
-	public H5Response uploadImgs(HttpServletRequest request, MultipartFile file,String url,Integer category,Integer configId) throws WeixinException, IOException {
-		PhotoConfig imgConfig=wechatService.insertImgConfig(configId,category,url,"/img/upload/"+new Date().getTime() + new String(file.getOriginalFilename().getBytes(),"UTF-8"));
+	public H5Response uploadImgs(HttpServletRequest request, MultipartFile file,String url,Integer category,Integer configId,String name) throws WeixinException, IOException {
+		PhotoConfig imgConfig=wechatService.insertImgConfig(configId,category,url,"/img/upload/"+new Date().getTime() + new String(file.getOriginalFilename().getBytes(),"UTF-8"),name);
 		 //拿到输出流，同时重命名上传的文件  
 		String baseUrl= request.getSession().getServletContext()
                 .getRealPath("/")+"sys/static";//TODO 后面可修改nigux映射到其他盘
@@ -128,5 +127,21 @@ public class WeiXinController extends BaseController{
 			json.put("detailImgs", detailImgs);
 			return json;
 			
+	}
+	@RequestMapping("/weixin/cfgReply")
+	@ResponseBody
+	public H5Response cfgReply(Integer configId,String welContext,String replyContext,boolean openCustomer) {
+		wechatService.updateReply(configId, welContext, replyContext, openCustomer);
+		return succeed();
+	}
+	@RequestMapping("/weixin/getReplays")
+	@ResponseBody
+	public H5Response getReplays(Integer configId) {
+		if(configId==null){
+			List<WechatConfig>  wechatConfigs=wechatService.getReplyBys();
+			return succeed(wechatConfigs);
+		}
+		WechatConfig wechatConfig=wechatService.getReplyByConfig(configId);
+		return succeed(wechatConfig);
 	}
 }
