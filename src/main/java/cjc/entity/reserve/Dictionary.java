@@ -20,8 +20,9 @@ public class Dictionary {
 	
 	private Integer type;
 	
-	@Column(name = "content_type")
-	private Integer contentType;
+	@Column(name="ref_id")
+	private Integer refId;
+	
 	
 	public Integer getId() {
 		return id;
@@ -47,10 +48,10 @@ public class Dictionary {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-	public Integer getContentType() {
-		return contentType;
+	public Integer getRefId() {
+		return refId;
 	}
-	public void setContentType(Integer contentType) {
-		this.contentType = contentType;
+	public void setRefId(Integer refId) {
+		this.refId = refId;
 	}
 }

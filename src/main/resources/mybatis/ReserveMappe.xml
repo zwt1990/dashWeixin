@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cjc.mapper.reserve.ReserveMapper">
+	
+ 	<resultMap id="reserveMap" type="cjc.entity.reserve.Reserve">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="project"  property="project"  jdbcType="VARCHAR" />
+		<result column="order_date"  property="resDate"  jdbcType="TIMESTAMP" />
+		<result column="form_id"  property="formId"  jdbcType="BIGINT" />
+	</resultMap>
+	
+  <select id="findByFormId" resultMap="reserveMap">
+   select r.id ,r.name,r.mobile,r.sex,r.project,r.order_date,r.form_id from reserve_reserve r
+   where r.form_id =#{formId, jdbcType=BIGINT}  ;
+  </select>
+  <select id="queryByFormIdAndMobile" resultMap="reserveMap">
+   select r.id ,r.name,r.mobile,r.sex,r.project,r.order_date,r.form_id from reserve_reserve r
+   where r.form_id =#{formId, jdbcType=BIGINT} and  r.mobile =#{mobile, jdbcType=VARCHAR} ;
+  </select>
+   <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="cjc.entity.reserve.Reserve">
+		INSERT INTO `reserve_reserve`(`name`, `mobile`, `sex`, `project`,`order_date`,`form_id`) 
+		VALUES(#{name}, #{mobile}, #{sex},#{project},#{resDate}, #{formId})
+    </insert>
+  
+</mapper>

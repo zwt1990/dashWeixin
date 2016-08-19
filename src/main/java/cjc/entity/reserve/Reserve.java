@@ -2,25 +2,12 @@ package cjc.entity.reserve;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import cjc.common.utils.DateUtil;
 
-@Entity
-@Table(name = "reserve_reserve")
 public class Reserve {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name="user_id")
-	private String userId;
+	private String openId;
 	
 	private String name;
 	
@@ -28,12 +15,14 @@ public class Reserve {
 	
 	private String mobile;
 	
-	@Column(name="res_date")
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date resDate;
 	
-	private String desc;
+	private String resDateStr;
 
+	private String project;
+	
+	private Integer formId;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -42,13 +31,6 @@ public class Reserve {
 		this.id = id;
 	}
 
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 
 	public String getName() {
 		return name;
@@ -79,14 +61,39 @@ public class Reserve {
 	}
 
 	public void setResDate(Date resDate) {
+		setResDateStr(DateUtil.convertDateToString(resDate));
 		this.resDate = resDate;
 	}
 
-	public String getDesc() {
-		return desc;
+	public Integer getFormId() {
+		return formId;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setFormId(Integer formId) {
+		this.formId = formId;
+	}
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
+
+	public String getResDateStr() {
+		return resDateStr;
+	}
+
+	public void setResDateStr(String resDateStr) {
+		this.resDateStr = resDateStr;
+	}
+
+	public String getProject() {
+		return project;
+	}
+
+	public void setProject(String project) {
+		this.project = project;
 	}
 }

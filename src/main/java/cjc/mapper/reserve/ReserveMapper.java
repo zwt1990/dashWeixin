@@ -1,13 +1,17 @@
 package cjc.mapper.reserve;
 
-import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
+import org.apache.ibatis.annotations.Param;
 
 import cjc.entity.reserve.Reserve;
 
-public interface ReserveMapper extends CrudRepository<Reserve, Serializable>{
+public interface ReserveMapper{
 	
-	public List<Reserve> findByUserId(String userId);
+	 
+	public List<Reserve> findByFormId(@Param(value="formId") Integer formId);
+	
+	public List<Reserve> queryByFormIdAndMobile(@Param(value="formId") Integer formId,@Param(value="mobile") String mobile);
+	
+	public void save(Reserve reserve);
 }

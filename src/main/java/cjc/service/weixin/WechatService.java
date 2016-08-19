@@ -5,7 +5,6 @@ import java.util.List;
 import cjc.dto.WechatConfig;
 import cjc.entity.weixin.PhotoConfig;
 import cjc.entity.weixin.WeixinConfig;
-import cjc.entity.weixin.WeixinReply;
 
 public interface WechatService {
 	
@@ -14,6 +13,8 @@ public interface WechatService {
 	public WeixinConfig queryConfigByOrigId(String originalId);
 	
 	public WeixinConfig getWxConfig(Integer id);
+	
+	public WeixinConfig addWxConfig(WeixinConfig WxConfig);
 	
 	public List<WeixinConfig> allWeixinConfigs();
 	

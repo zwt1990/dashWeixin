@@ -8,8 +8,8 @@ import cjc.entity.activity.Prize;
 import cjc.entity.activity.UserLotteryLog;
 import cjc.mapper.activity.ActivityMapper;
 import cjc.mapper.activity.UserLotteryLogMapper;
-import cjc.utils.DateUtil;
-import cjc.utils.State.LotteryStateEnum;
+import cjc.common.utils.DateUtil;
+import cjc.common.utils.State.LotteryStateEnum;
 
 @Component
 public abstract class Lottery {

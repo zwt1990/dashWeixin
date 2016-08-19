@@ -1,6 +1,6 @@
 package cjc.service.score;
 
-import cjc.utils.State.SignInStateEnum;
+import cjc.common.utils.State.SignInStateEnum;
 
 public interface SignInScoreService {
 	

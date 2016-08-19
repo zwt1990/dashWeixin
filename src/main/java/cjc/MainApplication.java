@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -18,13 +17,10 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 @SpringBootApplication
 @ComponentScan
 @MapperScan("cjc.mapper")
-@ServletComponentScan
 public class MainApplication extends SpringBootServletInitializer {
 
 	public static final String CONFIG_ENV = "CONFIG_ENV";
 	
-//    @Resource(name="txManager")
-//    private PlatformTransactionManager txManager;
 	
 	@Bean
     @ConfigurationProperties(prefix="spring.datasource")
@@ -44,14 +40,6 @@ public class MainApplication extends SpringBootServletInitializer {
         return sqlSessionFactoryBean.getObject();
     }
 	
-//	 @Bean(name = "txManager")
-//    public PlatformTransactionManager txManager(EntityManagerFactory factory) {
-//        return new JpaTransactionManager(factory);
-//    }
-//	@Override
-//	public PlatformTransactionManager annotationDrivenTransactionManager() {
-//		return txManager;
-//	}
  	
      protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
          return application.sources(MainApplication.class);

@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import cjc.common.utils.DateUtil;
+import cjc.common.utils.State.SignInStateEnum;
 import cjc.entity.score.UserScoreLog;
 import cjc.service.score.BaseScoreOperate;
 import cjc.service.score.SignInScoreService;
-import cjc.utils.DateUtil;
-import cjc.utils.State.SignInStateEnum;
 
 @Service("signInScoreService")
 public class SignInScoreServiceImpl extends BaseScoreOperate implements  SignInScoreService{

@@ -104,5 +104,10 @@ public class WechatServiceImpl implements  WechatService{
 	public List<WechatConfig> getReplyBys() {
 		return weixinReplyDao.getReplys();
 	}
+
+	@Override
+	public WeixinConfig addWxConfig(WeixinConfig WxConfig) {
+		return weixinConfigDao.save(WxConfig);
+	}
 	
 }

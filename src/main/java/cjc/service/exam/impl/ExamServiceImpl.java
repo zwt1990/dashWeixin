@@ -3,31 +3,25 @@ package cjc.service.exam.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import cjc.common.utils.DateUtil;
 import cjc.dto.ExamDTO;
 import cjc.dto.ExamResultDTO;
 import cjc.dto.ExamStatisticsDTO;
 import cjc.dto.QuestionDTO;
 import cjc.entity.exam.Exam;
 import cjc.entity.exam.ExamResult;
-import cjc.entity.exam.QuestionOpt;
 import cjc.entity.exam.Question;
+import cjc.entity.exam.QuestionOpt;
 import cjc.entity.exam.ResultDeatil;
 import cjc.mapper.exam.ExamMapper;
-import cjc.mapper.exam.QuestionOptMapper;
 import cjc.mapper.exam.QuestionMapper;
-import cjc.mapper.exam.ResultMapper;
+import cjc.mapper.exam.QuestionOptMapper;
 import cjc.mapper.exam.ResultDeatilMapper;
+import cjc.mapper.exam.ResultMapper;
 import cjc.service.exam.ExamService;
-import cjc.utils.DateUtil;
 @Service("examService")
 public class ExamServiceImpl implements ExamService{
 

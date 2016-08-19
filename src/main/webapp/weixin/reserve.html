@@ -8,49 +8,33 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="format-detection" content="telephone=no">
 <link rel="stylesheet" type="text/css" href="static/css/reserve.css" />
-<script type="text/javascript">
-function validateEmpty(){
-
-}
-function submitRes(){
-	if(validateEmpty()){
-		
-	}
-}
-</script>
+ <script src="../sys/static/bootstrap/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../sys/static/js/common.js"></script>
+<script type="text/javascript" src="static/js/reserve.js"></script>
 <title>预约</title>
 </head>
 <body>
-	<img src="../sys/static/bootstrap/img/p8.jpg"   class="poster_img"/>
-	<table class="reserve_table">
-	<tr class="reserve_table_tr">
-	<td class="left_td">您的姓名:</td>
-	<td class="right_td"><input type="text" id="name" placeholder="请输入您的姓名" class="reserve_input"/><span class="icon-flow">*</span></td>
-	</tr>
-	<tr>
-	<td class="left_td">您的性别:</td>
-	<td  class="right_td"><span><input type="radio" name="sex" value="1"></span><span>男</span><span><input type="radio" name="sex" value="2"></span>女</td>
-	</tr>
-	<tr>
-	<td class="left_td">联系方式:</td>
-	<td  class="right_td"><input type="tel" id="mobile" placeholder="请输入您的联系方式" class="reserve_input"/><span class="icon-flow">*</span></td>
-	</tr>
-	<tr>
-	<td class="left_td">预约套餐:</td>
-	<td  class="right_td"><select><option>套餐A</option></select><span class="icon-flow">*</span></td>
-	</tr>
-	<tr>
-	<td class="left_td">预约日期:</td>
-	<td  class="right_td"><input type="date" id="date" placeholder="请选择预约日期" class="reserve_input"/><span class="icon-flow">*</span></td>
-	</tr>
-	<tr>
-	<td class="left_td" style="vertical-align: top;">详细备注:</td>
-	<td  class="right_td"><textarea rows="4" cols="30"></textarea> </td>
-	</tr>
-	</table>
-	<div class="btn_group">
-	<span class="dis_btn" >电话咨询</span>
-	<span  class="pos_btn"  onclick="submitRes()">提交预约</span>
+	<img id="headImg"  class="poster_img"/>
+	<div class="reserve_item">
+	<input type="text" id="name" class="input_text" placeholder="姓名">
 	</div>
+	<div class="reserve_item">
+	<input type="tel" id="mobile" class="input_text" placeholder="手机">
+	</div>
+	<div class="reserve_item">
+	<select class="input_select" id="sex">
+	<option value="男">男</option>
+	<option value="女">女</option>
+	</select>
+	</div>
+	<div class="reserve_item">
+	<input  class="input_text" type="text" placeholder="预约日期" onfocus="(this.type='date')"  id="date">
+	</div>
+		<div class="reserve_item">
+	<select class="input_select" id="project">
+	</select>
+	</div>
+	<div style="text-align: center;"><button class="pos_btn" onclick="submitReserve()">提交预约</button></div>
+	<div style="text-align: center;margin-top: 30px;"><button class="button green rarrow" onclick="toLinkPg()" id="share_link" style="display: none;">预约有奖</button></div>
 </body>
 </html>

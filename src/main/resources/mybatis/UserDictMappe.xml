@@ -15,4 +15,6 @@
    select md.id id,d.key ,d.value property ,d.content_type ,ud.value from reserve_mod_dict md LEFT JOIN reserve_dictionary d   on md.dict_id = d.id and md.module_id = 1 LEFT JOIN   reserve_user_dict ud on md.id = ud.mod_dict_id
    where md.module_id =#{moduleId, jdbcType=BIGINT}  and  user_id =#{userId, jdbcType=BIGINT};
   </select>
+  
+  
 </mapper>

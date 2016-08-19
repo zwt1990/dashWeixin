@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import cjc.entity.score.UserScoreLog;
 import cjc.mapper.score.UserScoreLogMapper;
-import cjc.utils.DateUtil;
+import cjc.common.utils.DateUtil;
 
 @Component
 public  class BaseScoreOperate {
