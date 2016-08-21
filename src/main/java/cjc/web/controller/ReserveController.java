@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import cjc.controller.common.H5Response;
 import cjc.dto.ResFormDTO;
 import cjc.entity.reserve.ResForm;
 import cjc.entity.reserve.Reserve;
 import cjc.service.reserve.ModuleService;
 import cjc.service.reserve.ReserveService;
+import cjc.web.controller.common.H5Response;
 
 @Controller
 @RequestMapping(value="reserve/")

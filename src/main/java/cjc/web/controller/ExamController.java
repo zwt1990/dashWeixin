@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cjc.controller.common.H5Response;
 import cjc.dto.ExamDTO;
 import cjc.dto.ExamResultDTO;
 import cjc.dto.ExamStatisticsDTO;
 import cjc.dto.QuestionDTO;
 import cjc.entity.exam.Exam;
 import cjc.service.exam.ExamService;
+import cjc.web.controller.common.H5Response;
 
 import com.alibaba.fastjson.JSONObject;
 

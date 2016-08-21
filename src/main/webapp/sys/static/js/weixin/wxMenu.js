@@ -75,7 +75,7 @@ function submitButtons() {
 	}
     $.ajax({
         type: 'POST',
-        url: '../weixin/updateBtn?configId='+getQueryString('configId'),
+        url: '../weixin/updateBtn?configId='+getQueryString('id'),
         data: JSON.stringify(getMenuButtons()),
         dataType: "json",
         contentType: "application/json",

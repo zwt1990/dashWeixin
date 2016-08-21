@@ -1,19 +1,13 @@
 $(function(){
 	initTable();
 });
+var table;
 function initTable(){
-	  $('#wxReserveTable').dataTable( {
+	table=  $('#wxReserveTable').dataTable( {
 		  "ajaxSource":  "../reserve/queryForms",
 		  "columns": [
 		    { "data": "consumerName" },
 		    { "data": "title" },
-		    { 
-		    	"data": "imgUrl",
-		    	"render" : function(data, type, full, meta) {
-		    			 return '<div class=\"fa fa-search\"   style=\"cursor:pointer\" onclick=\"viewImg('+data+')\"></div>';
-		    		
-				}
-		    },
 		    { "data": "projects"},
 		    { "data": "resCounts"},
 		    { "data": "id",
@@ -66,6 +60,7 @@ function upladFile(callback) {
     var form = new FormData();
     form.append("file", fileObj);  
     form.append("title", $("#title").val()); 
+    form.append("link", $("#link").val());
     form.append("consumerName", $("#consumerName").val());  
     // XMLHttpRequest 对象
     var xhr = new XMLHttpRequest();
@@ -77,17 +72,15 @@ function upladFile(callback) {
    	 }else{
    		 $('#modal-form').modal('hide');
    	  		clearDlg();
+   	  	 table.api().ajax.reload();
    	 }
  
     };
     xhr.send(form);
 }
 function showH5(data){
-	location.href="../weixin/reserve.html?formId="+data;
+	parent.location.href="../weixin/reserve.html?formId="+data;
 }
- function viewImg(data){
-	location.href= "../sys/static"+data;
- }
  function toResDetail(data){
 	 location.href="reserveInfo.html?id="+data;
  }

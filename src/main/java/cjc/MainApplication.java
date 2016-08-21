@@ -9,14 +9,18 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+
+import cjc.common.config.EnvConfig;
 @EnableAutoConfiguration
 @SpringBootApplication
 @ComponentScan
 @MapperScan("cjc.mapper")
+@EnableConfigurationProperties({EnvConfig.class})  
 public class MainApplication extends SpringBootServletInitializer {
 
 	public static final String CONFIG_ENV = "CONFIG_ENV";

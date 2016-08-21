@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>微信页面管理</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/bootstrap/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <!-- Data Tables -->
+    <link href="static/bootstrap/css/animate.css" rel="stylesheet">
+    <link href="static/bootstrap/css/style.css" rel="stylesheet">
+    <link href="static/bootstrap/js/plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
+      <link href="static/bootstrap/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+  <!--    <link rel="stylesheet" type="text/css" href="static/bootstrap/css/plugins/webuploader/webuploader.css"> -->
+    <!--  <link rel="stylesheet" type="text/css" href="static/bootstrap/css/demo/webuploader-demo.css"> -->
+    <script type="text/template" id="carousel-temp">
+		<%_.each(obj, function(item, index) { %>
+			<div class = "<%= index == 0 ? "item active " : "item "%>" > <img alt = "image"class = "img-responsive"src = "static<%=item.path%>" > <div class = "carousel-caption" > <p > 链接地址： <%=item.url%></p></div > </div>
+			<%})%>
+    </script>
+    <script type="text/template" id="box-temp">
+		<%_.each(obj, function(item, index) { %>
+        <a class = "fancybox"href = "../static<%=item.path%>"title = "链接地址：<%=item.url%>" > <img alt = "image"src ="static<%=item.path%>" / ></a>
+			<%})%>
+    </script>
+  </head>
+  
+  <body>
+      <div id="page-wrapper" class="gray-bg dashbard-1" style="margin: 0px;">
+        <div class="row border-bottom">
+          <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+              <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="table_data_tables.html#">
+                <i class="fa fa-bars"></i>
+              </a>
+              <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
+                <div class="form-group">
+                  <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search"></div>
+              </form>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+              <li>
+                <a href="login.html">
+                  <i class="fa fa-sign-out"></i>退出</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="row wrapper border-bottom white-bg page-heading">
+          <div class="col-lg-10">
+            <h2>微信</h2>
+            <ol class="breadcrumb">
+              <li>
+                <a href="index.html">主页</a></li>
+              <li>
+                <a>产品相册</a>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <!-- 显示内容 -->
+        <div class="wrapper wrapper-content">
+           <div class="form-group">
+               <div class="well">
+                   <button class="btn btn-primary btn-lg" onclick="toggleModal()">上传图片</button>
+               </div>
+           </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                  <h5>普遍轮播页</h5>
+                  <div class="ibox-tools">
+                    <a class="collapse-link">
+                      <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="carousel.html#">
+                      <i class="fa fa-wrench"></i>
+                    </a>
+                    <a class="close-link">
+                      <i class="fa fa-times"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="ibox-content ">
+                  <div class="carousel slide" id="carousel2">
+                    <ol class="carousel-indicators">
+                      <li data-slide-to="0" data-target="#carousel2" class="active"></li>
+                      <li data-slide-to="1" data-target="#carousel2"></li>
+                      <li data-slide-to="2" data-target="#carousel2" class=""></li>
+                    </ol>
+                    <div class="carousel-inner" id="carousel-imgs"></div>
+                    <a data-slide="prev" href="carousel.html#carousel2" class="left carousel-control">
+                      <span class="icon-prev"></span>
+                    </a>
+                    <a data-slide="next" href="carousel.html#carousel2" class="right carousel-control">
+                      <span class="icon-next"></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                  <h5>产品详情</h5>
+                  <div class="ibox-tools">
+                    <a class="collapse-link">
+                      <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-wrench"></i>
+                    </a>
+                    <a class="close-link">
+                      <i class="fa fa-times"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="ibox-content" id="detail_imgs"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                  <h5>菜单按钮</h5>
+                  <div class="ibox-tools">
+                    <a class="collapse-link">
+                      <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-wrench"></i>
+                    </a>
+                    <a class="close-link">
+                      <i class="fa fa-times"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="ibox-content" id="menu_imgs"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div id="modal-form" class="modal fade" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                                 <div class="modal-header">
+							            <button type="button" class="close" 
+							               data-dismiss="modal" aria-hidden="true">
+							                  &times;
+							            </button>
+							            <h4 class="modal-title" id="myModalLabel">
+							            	   上传图片
+						            </h4>
+						         </div>
+                          <div class="modal-body">
+                            <div class="row">
+                              <div class="col-sm-12 b-r">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <div class="col-sm-10">
+                                            <select class="form-control m-b" id="category">
+                                                <option value="1" hassubinfo="true">轮播页</option>
+                                            <option value="2" hassubinfo="true">菜单图片</option>
+                                            <option value="3" hassubinfo="true">详情图片</option>
+                                            </select>
+                                        </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="text" placeholder="请输入图片名称" class="form-control" id="name"></div>
+                                  <div class="form-group">
+                                    <input type="text" placeholder="请输入链接地址（必须http://开头）" class="form-control" id="url"></div>
+                                      <div class="form-group"> 
+							           <input type="file" placeholder="请选择图片" class="form-control" id="file" accept="image/*" />
+							          </div> 
+								 	 <div id="uploader-demo">
+								    <!--用来存放item-->
+				<!-- 				   <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <div class="page-container">
+                                    <div id="uploader" class="wu-example">
+                                        <div class="queueList">
+                                            <div id="dndArea" class="placeholder">
+                                                <div id="filePicker"></div>
+                                                <p>或将照片拖到这里</p>
+                                            </div>
+                                        </div>
+                                        <div class="statusBar" style="display:none;">
+                                            <div class="progress">
+                                                <span class="text">0%</span>
+                                                <span class="percentage"></span>
+                                            </div>
+                                            <div class="info"></div>
+                                            <div class="btns">
+                                                <div id="filePicker2"></div>
+                                                <div class="uploadBtn">开始上传</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+								</div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                            <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    <button type="button" class="btn btn-primary" onclick="upladFile()">上传</button>
+                                    <button type="button" class="btn btn-primary" onclick="next()">上传并继续添加</button></div>
+                                      
+                                    
+                        </div>
+                      </div>
+                    </div>
+       
+      </div>
+      <!-- Mainly scripts -->
+      <script src="static/bootstrap/js/jquery-2.1.1.min.js"></script>
+      <script src="static/bootstrap/js/bootstrap.min.js?v=3.4.0"></script>
+      <script src="static/bootstrap/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+      <script src="static/bootstrap/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+      <!-- DROPZONE -->
+      
+      <script src="static/bootstrap/js/plugins/fancybox/jquery.fancybox.js"></script>
+      <script src="static/bootstrap/js/plugins/webuploader/webuploader.min.js"></script>
+    <!--   <script src="static/js/weixin/webuploader.js"></script> -->
+      <script src="static/js/underscore.js"></script>
+      <script src="static/js/common.js"></script>
+       <script src="static/bootstrap/js/plugins/toastr/toastr.min.js"></script>
+      <script src="static/js/weixin/photoInfo.js"></script>
+      <!-- Page-Level Scripts -->
+      <script></script>
+  </body>
+
+</html>

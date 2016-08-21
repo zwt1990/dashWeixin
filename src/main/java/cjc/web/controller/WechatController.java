@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,12 +24,12 @@ import cjc.common.weixin.sdk.WeixinException;
 import cjc.common.weixin.sdk.menu.CustomMenu.Button;
 import cjc.common.weixin.sdk.menu.CustomMenu.CustomButton;
 import cjc.common.weixin.sdk.menu.CustomMenu.TYPE;
-import cjc.controller.common.H5Response;
 import cjc.dto.MenuButton;
 import cjc.dto.WechatConfig;
 import cjc.entity.weixin.PhotoConfig;
 import cjc.entity.weixin.WeixinConfig;
 import cjc.service.weixin.WechatService;
+import cjc.web.controller.common.H5Response;
 
 import com.alibaba.fastjson.JSONObject;
 @Controller
@@ -75,6 +76,20 @@ public class WechatController extends BaseController{
 		List<WeixinConfig> configs=wechatService.allWeixinConfigs();
 		return succeed(configs);
 	}
+	
+	@RequestMapping("/weixin/addConfig")
+	@ResponseBody
+	public H5Response addConfig(HttpServletRequest request,
+			HttpServletResponse response,String appId,String appSecret,String name,String token,String originalId) throws WeixinException {
+		WeixinConfig  weixinConfig =new WeixinConfig();
+		weixinConfig.setAppId(appId);
+		weixinConfig.setAppSecret(appSecret);
+		weixinConfig.setName(name);
+		weixinConfig.setOriginalId(originalId);
+		weixinConfig.setToken(token);
+		wechatService.addWxConfig(weixinConfig);
+		return succeed();
+	}	
 	
 	@RequestMapping("/weixin/uploadImgs")
 	@ResponseBody

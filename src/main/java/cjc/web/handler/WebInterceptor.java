@@ -4,17 +4,21 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import cjc.common.utils.HttpUtils;
+import cjc.common.config.EnvConfig;
+import cjc.common.utils.HttpUtil;
 import cjc.common.utils.SessionUtil;
 
 import com.alibaba.fastjson.JSONObject;
 public class WebInterceptor  implements HandlerInterceptor{
 
+	@Autowired
+	private EnvConfig envConfig;
+	
 	@Override
 	public void afterCompletion(HttpServletRequest arg0,
 			HttpServletResponse arg1, Object arg2, Exception arg3)
@@ -34,7 +38,7 @@ public class WebInterceptor  implements HandlerInterceptor{
 		if (userId != null) {
 			return true;
 		}
-		if (HttpUtils.isAjax(req)) {
+		if (HttpUtil.isAjax(req)) {
 			JSONObject json=new JSONObject();
 			json.put("status", false);
 			json.put("code", -200);
@@ -44,7 +48,7 @@ public class WebInterceptor  implements HandlerInterceptor{
 			out.flush();
 			return false;
 		}
-		response.sendRedirect("login.html");
+		response.sendRedirect(envConfig.getDomain()+envConfig.getPath()+"/login.html");
 		return false;
 	}
 

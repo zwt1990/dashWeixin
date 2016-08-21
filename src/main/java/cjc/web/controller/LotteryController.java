@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cjc.controller.common.H5Response;
 import cjc.service.activity.ActivityService;
+import cjc.web.controller.common.H5Response;
 
 @Controller
 @RequestMapping(value="activity/")

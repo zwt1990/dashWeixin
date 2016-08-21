@@ -10,11 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cjc.common.config.EnvConfig;
 import cjc.common.utils.Md5Util;
 import cjc.common.utils.SessionUtil;
-import cjc.controller.common.H5Response;
 import cjc.entity.sys.User;
 import cjc.service.sys.UserAuthorityService;
+import cjc.web.controller.common.H5Response;
 
 @Controller
 @RequestMapping(value="sys/")
@@ -22,7 +23,8 @@ public class UserLoginController extends BaseController{
 
 	@Autowired
 	private UserAuthorityService	userAuthorityService;
-	
+	@Autowired
+	private EnvConfig envConfig;
 	
 	@RequestMapping(value = "login")
 	@ResponseBody
@@ -39,11 +41,10 @@ public class UserLoginController extends BaseController{
 	}
 	
 	@RequestMapping(value = "logout")
-	public String  queryList(HttpServletRequest request,
-			HttpServletResponse response,String username) throws IOException {
+	public void  queryList(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
 		SessionUtil.logout(request);
-		return "login.html";
-		
+		response.sendRedirect(envConfig.getDomain()+envConfig.getPath()+"/login.html");
 	}
 	
 }

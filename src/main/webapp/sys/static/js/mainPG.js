@@ -13,6 +13,8 @@ function initData(){
 	   if(data.status){
 		   var data=data.data;
 		   var html_menus=_.template($("#menus-temp").html(),data.menu);
+		   $("#name").html(data.user.name);
+		   $("#role").html(data.user.role.name);
 		   $("#side-menu").append(html_menus);
 	   }else{
 		   location.replace("../login.html");

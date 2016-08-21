@@ -1,6 +1,7 @@
 package cjc.service.reserve.impl;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cjc.common.utils.DateUtil;
 import cjc.dto.ResFormDTO;
 import cjc.entity.reserve.Dictionary;
 import cjc.entity.reserve.ResForm;
@@ -16,9 +18,6 @@ import cjc.mapper.reserve.DictionaryMapper;
 import cjc.mapper.reserve.ResFormMapper;
 import cjc.mapper.reserve.ReserveMapper;
 import cjc.service.reserve.ReserveService;
-import cjc.common.utils.DateUtil;
-
-import com.google.common.collect.Lists;
 
 @Service("reserveService")
 public class ReserveServiceImpl implements ReserveService{
@@ -46,7 +45,7 @@ public class ReserveServiceImpl implements ReserveService{
 	@Override
 	public List<ResFormDTO> getAllForms() {
 		 Iterable<ResForm> resForms= resFormMapper.findAll();
-		 List<ResFormDTO> resFormDTOs=Lists.newArrayList();
+		 List<ResFormDTO> resFormDTOs=new ArrayList<ResFormDTO>();
 		 Iterator<ResForm> iterator = resForms.iterator();
 	        while (iterator.hasNext()) {
 	        	ResForm form = iterator.next();
@@ -87,7 +86,7 @@ public class ReserveServiceImpl implements ReserveService{
 			 sb.append(dict.getKey()) ;
 			 sb.append("，");
 		 }
-		 return "";
+		 return sb.toString().substring(0,sb.length()-1);
 	}
 
 

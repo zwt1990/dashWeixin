@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
-import cjc.controller.common.H5Response;
+import cjc.web.controller.common.H5Response;
 
 /**
  * 

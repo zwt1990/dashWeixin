@@ -24,7 +24,7 @@
     	   	     type: 'POST',
     	        url: 'getImgconfigs' ,
     	       data: {
-    	       		configId:'1'
+    	       		configId:getQueryString("id")
     	       } ,
     	       dataType: 'json',
     	       success: function(data){

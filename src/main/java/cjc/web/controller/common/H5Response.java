@@ -1,4 +1,4 @@
-package cjc.controller.common;
+package cjc.web.controller.common;
 
 import java.util.ArrayList;
 import java.util.List;

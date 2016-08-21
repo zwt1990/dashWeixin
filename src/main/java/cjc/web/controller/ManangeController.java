@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cjc.dto.MenuDTO;
+import cjc.dto.UserDTO;
 import cjc.entity.sys.User;
 import cjc.service.sys.UserAuthorityService;
+import cjc.web.controller.common.H5Response;
 import cjc.common.utils.Md5Util;
 import cjc.common.utils.SessionUtil;
-import cjc.controller.common.H5Response;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -33,7 +34,7 @@ public class ManangeController extends BaseController{
 	public H5Response getMainInfo(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		Integer userId=(Integer) SessionUtil.getUserId(request);
-		User user=userAuthorityService.getUser(userId);
+		UserDTO user=userAuthorityService.getUser(userId);
 		List<MenuDTO> muens=userAuthorityService.getMenusByUserId(userId);
 		JSONObject json=new JSONObject();
 		json.put("user", user);

@@ -8,12 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-
-import cjc.entity.weixin.WeixinConfig;
 import cjc.common.utils.DateUtil;
-import cjc.common.utils.HttpUtils;
+import cjc.common.utils.HttpUtil;
 import cjc.common.weixin.sdk.menu.CustomMenu.CustomButton;
 import cjc.common.weixin.sdk.msg.activity.AbstractMessage;
 import cjc.common.weixin.sdk.msg.activity.ImageMessage;
@@ -24,10 +20,10 @@ import cjc.common.weixin.sdk.msg.activity.VideoMessage;
 import cjc.common.weixin.sdk.msg.activity.VoiceMessage;
 import cjc.common.weixin.sdk.qrcode.QrCodeRequest;
 import cjc.common.weixin.sdk.qrcode.QrCodeResponse;
+import cjc.entity.weixin.WeixinConfig;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
-import com.qccr.commons.httpclient.HttpRequest;
 
 public class WeiXinUtil {
 	private final static Map<String,AccessToken> tokenMap=new HashMap<String,AccessToken>();
@@ -59,7 +55,7 @@ public class WeiXinUtil {
 	}
 	
 	private static String refreshToken(WeixinConfig config){
-		String result=HttpUtils.doGet(WeiXinUrls.getTokenUrl(config));
+		String result=HttpUtil.doGet(WeiXinUrls.getTokenUrl(config));
 		AccessToken accessToken=JSONObject.parseObject(result, AccessToken.class);
 		accessToken.setCacheTime(new Date());
 		tokenMap.put(config.getAppId(), accessToken);
@@ -72,19 +68,17 @@ public class WeiXinUtil {
 		if(DateUtil.getMarginSeconds(new Date(), ticket.getCacheTime())>ticket.getExpires_in()){
 			return refreshJsSDKTicket( config);
 		}
-		JSONObject jsSDKTicketObj = HttpRequest
-				.Get(WeiXinUrls.getJsSDKUrl(getToken(config))).execute()
-				.getJsonData();
+		String result=HttpUtil.doGet(WeiXinUrls.getJsSDKUrl(getToken(config)));
+		JSONObject jsSDKTicketObj=JSONObject.parseObject(result);
 		if(jsSDKTicketObj.getIntValue("errcode")==40001){//TOKEN失效
-			 jsSDKTicketObj = HttpRequest.Get(WeiXinUrls.getJsSDKUrl(refreshToken(config)))
-					   .execute().getJsonData();
+			 jsSDKTicketObj =JSONObject.parseObject( HttpUtil.doGet(WeiXinUrls.getJsSDKUrl(refreshToken(config))));
 		}
 		String jsSDKTicketStr = jsSDKTicketObj.getString("ticket");
 		return jsSDKTicketStr;
 	}
 	
 	private static String refreshJsSDKTicket(WeixinConfig config){
-		String result=HttpUtils.doGet(WeiXinUrls.getTokenUrl(config));
+		String result=HttpUtil.doGet(WeiXinUrls.getTokenUrl(config));
 		AccessToken accessToken=JSONObject.parseObject(result, AccessToken.class);
 		accessToken.setCacheTime(new Date());
 		tokenMap.put(config.getAppId(), accessToken);
@@ -228,9 +222,8 @@ public class WeiXinUtil {
      */
     public static JSONObject getMenu(WeixinConfig config) throws WeixinException {
     	try{
-    		return HttpRequest.Get(WeiXinUrls.getMenuGetUrl(getToken(config)))
-					  .execute()
-					  .getJsonData();
+    		String result= HttpUtil.doGet(WeiXinUrls.getMenuGetUrl(getToken(config)));
+    		return JSONObject.parseObject(result);
     	}catch(Exception e){
     		throw new WeixinException("method_getMenu_exception:", e.getMessage(), e.getCause());
     	}
@@ -291,10 +284,7 @@ public class WeiXinUtil {
     
     
     protected static final <T> T postWithJson(WeixinConfig config,String url, Object param, Class<T> returnType) throws WeixinException{
-    	HttpPost post = new HttpPost(url);
-    	post.addHeader("Content-Type", "text/xml");
-		post.setEntity(new StringEntity( JSONObject.toJSONString(param),"UTF-8"));
-		String httpResult = HttpUtils.excute(post);
+		String httpResult = HttpUtil.doJsonPost(url, param);
 			GlobalError error =JSONObject.parseObject(httpResult, GlobalError.class);
 			if(error.errcode!=null){
 				 if (error.errcode == 40001) {
