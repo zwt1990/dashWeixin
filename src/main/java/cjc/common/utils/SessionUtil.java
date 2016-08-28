@@ -4,17 +4,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class SessionUtil {
-	private  static HttpSession session=null;
 	
 	 private SessionUtil(){
 		 
 	 }
 	
 	public  static HttpSession getIntance(HttpServletRequest request){
-		if(session==null){
-			session=request.getSession();
-			session.setMaxInactiveInterval(60*60*2);
-		}
+		HttpSession	session=request.getSession();
+		session.setMaxInactiveInterval(60*60*2);
 		return session;
 	}
 	public static void login(HttpServletRequest request,Integer userId){

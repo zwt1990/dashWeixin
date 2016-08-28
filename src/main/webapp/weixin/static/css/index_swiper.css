@@ -121,3 +121,21 @@ a {
 .detail-description {
     color: #ccc;
 }
+
+
+.table_left_td{
+    padding: 8px;
+    background: white;
+    font-weight: bold;
+    width: 30%;
+}
+.table_right_td{
+    padding: 8px;
+    background: white;
+    font-weight: bold;
+     width: 70%;
+}
+.detailImg{
+	max-width: 100%;
+	
+}

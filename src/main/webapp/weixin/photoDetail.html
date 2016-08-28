@@ -19,14 +19,12 @@
 </div>
 
 <section class="container-fluid">
-    <div class="row all-category-container">
-        <!---->
-    </div>
     <div class="row all-product-view">
-        <div class="text-center category-name-text">详情</div>
-        <div class="all-product-container">
-            <!---->
-        </div>
+        <div class="text-center category-name-text">产品参数</div>
+        <table id="dataForm" width="100%" border="1">
+        </table>
+        <div class="text-center category-name-text">产品详情</div>
+        <div ><img class="detailImg" id="descImg"></div>
     </div>
 </section>
 
@@ -38,43 +36,18 @@
         </a>
     </div>
 </script>
-
-<script id="categoryItemTemplate" type="text/template">
-    <div class="category-container" style="display:none">
-        <div class="img-container center-block">
-            <a href="<%=link%>">
-                <img src="<%=imageUrl%>" class="img-responsive img-circle category-img">
-            </a>
-        </div>
-        <span><%=text%></span>
-    </div>
-</script>
-
-<script id="twoProductTemplate" type="text/template">
-    <div class="tow-product" >
-        <div class="product-content1">
-            <%=content1%>
-        </div>
-        <div class="product-gap"></div>
-        <div class="product-content2">
-            <%=content2%>
-        </div>
-    </div>
-</script>
-
-<script id="productItemTemplate" type="text/template">
-    <div class="product-item-img">
-        <a href="<%=link%>">
-            <img src="<%=imageUrl%>" class="img-responsive w100">
-        </a>
-    </div>
+<script id="fromDataTemplate" type="text/template">
+	<tr >
+		<td class="table_left_td"><%=extKey%></td>
+		<td class="table_right_td"><%=extValue%></td>
+	</tr>
 </script>
 <script src="../sys/static/bootstrap/js/jquery-2.1.1.min.js"></script>
 <script src="../sys/static/js/underscore.js"></script>
  <script src="../sys/static/bootstrap/js/bootstrap.min.js"></script>
 <script src="out/res/swiper/js/swiper.jquery.js"></script>
 <script type="text/javascript" src="../sys/static/js/common.js"></script>
-<script src="static/js/photo.js"></script>
+<script src="static/js/photoDetail.js"></script>
 
 
 </body>

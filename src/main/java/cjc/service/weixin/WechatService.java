@@ -18,11 +18,6 @@ public interface WechatService {
 	
 	public List<WeixinConfig> allWeixinConfigs();
 	
-	public PhotoConfig insertImgConfig(Integer wxConfigId,Integer category,String url,String path,String name);
-	
-	public void deleteImgConfig(Integer id);
-	
-	public List<PhotoConfig> getUsefulImgs(Integer configId,Integer category);
 	
 	public WeixinConfig createWXconfig(WeixinConfig weixinConfig);
 	

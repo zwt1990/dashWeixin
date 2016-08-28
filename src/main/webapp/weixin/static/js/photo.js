@@ -22,7 +22,7 @@
     function fetchDataFromServer() {
     	   $.ajax({
     	   	     type: 'POST',
-    	        url: 'getImgconfigs' ,
+    	        url: '../wxphoto/getImgconfigs' ,
     	       data: {
     	       		configId:getQueryString("id")
     	       } ,
@@ -65,6 +65,7 @@
                  productName: data.detailImgs[i].name,
                  link: data.detailImgs[i].url,
                  price: 100.50,
+                 id:data.detailImgs[i].id,
                  description: 'helo'
              };
              productList.push(productItem);
@@ -124,12 +125,11 @@
         return _productItemTemplate({
             imageUrl: productItem.imageUrl,
             productName: productItem.productName,
-            link: productItem.link,
+            link:'photoDetail.html?id='+ productItem.id,
             price: productItem.price,
             description: productItem.description
         });
     }
 
     fetchDataFromServer();
-    
 }(window);

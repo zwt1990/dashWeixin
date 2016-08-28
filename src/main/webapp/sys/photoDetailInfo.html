@@ -15,7 +15,7 @@
     <link href="static/bootstrap/css/animate.css" rel="stylesheet">
     <link href="static/bootstrap/css/style.css" rel="stylesheet">
       <link href="static/bootstrap/css/plugins/toastr/toastr.min.css" rel="stylesheet">
-       <link href="static/bootstrap/js/plugins/layer/skin/layer.css" rel="stylesheet">
+        <link href="static/bootstrap/js/plugins/layer/skin/layer.css" rel="stylesheet">
   </head>
   
   <body>
@@ -27,9 +27,12 @@
             <h2>微信</h2>
             <ol class="breadcrumb">
               <li>
-                <a >主页</a></li>
+                <a href="https://wap.koudaitong.com/v2/showcase/feature?alias=hja0esw&sf=wx_menu&redirect_count=1">主页</a></li>
               <li>
                 <a>产品相册</a>
+              </li>
+              <li>
+                <a>产品详情</a>
               </li>
             </ol>
           </div>
@@ -58,15 +61,13 @@
                   <div class="ibox float-e-margins">
                     <div class="ibox-content">
                       <div class="">
-                        <a data-toggle="modal" data-target="#modal-form" class="btn btn-primary">上传图片</a></div>
+                        <a data-toggle="modal" data-target="#modal-form" class="btn btn-primary">增加属性</a></div>
                       <table class="table table-striped table-bordered table-hover " id="wxPhotoTable">
                         <thead>
                           <tr>
-                            <th>图片名称</th>
-                            <th>图片类型</th>
-                            <th>创建时间</th>
-                            <th>图片地址</th>
-                            <th>编辑详情页</th>
+                            <th>类型</th>
+                            <th>属性名</th>
+                            <th>属性值</th>
                             <th>删除</th>
                             </tr>
                         </thead>
@@ -99,16 +100,18 @@
                                         <div class="col-sm-10">
                                             <select class="form-control m-b" id="category">
                                                 <option value="1" hassubinfo="true">轮播页</option>
-                                         <!--    <option value="2" hassubinfo="true">菜单图片</option> -->
-                                            <option value="3" hassubinfo="true">详情图片</option>
+                                                 <option value="2" hassubinfo="true">表格参数</option>
+                                           		 <option value="3" hassubinfo="true">详情图片</option>
                                             </select>
                                         </div>
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" placeholder="请输入图片名称" class="form-control" id="name"></div>
-                            <!--       <div class="form-group">
-                                    <input type="text" placeholder="请输入链接地址（必须http://开头）" class="form-control" id="url"></div> -->
-                                      <div class="form-group"> 
+                                <div class="form-group"  style="display: none;" id="keyForm">
+                                    <input type="text" placeholder="请输入属性名称" class="form-control" id="key">
+                                   </div>
+                                     <div class="form-group"  style="display: none;" id="valueForm">
+                                    <input type="text" placeholder="请输入属性值" class="form-control" id="value">
+                                   </div>
+                                      <div class="form-group" id="fileForm"> 
 							           <input type="file" placeholder="请选择图片" class="form-control" id="file" accept="image/*" />
 							          </div> 
 								 	 <div id="uploader-demo">
@@ -119,8 +122,7 @@
                           </div>
                             <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                    <button type="button" class="btn btn-primary" onclick="upladFile()">上传</button>
-                                    <button type="button" class="btn btn-primary" onclick="next()">上传并继续添加</button></div>
+                                    <button type="button" class="btn btn-primary" onclick="addPhotoExt()">保存</button>
                                       
                                     
                         </div>
@@ -137,14 +139,14 @@
       
       <script src="static/bootstrap/js/plugins/dataTables/jquery.dataTable.js"></script>
     <script src="static/bootstrap/js/plugins/dataTables/dataTables.bootstrap.js"></script>
-     <script src="static/bootstrap/js/plugins/toastr/toastr.min.js"></script>
-    <!-- layer javascript -->
+        <!-- layer javascript -->
     <script src="static/bootstrap/js/plugins/layer/layer.min.js"></script>
     <script>
         layer.use('extend/layer.ext.js'); //载入layer拓展模块
     </script>
       <script src="static/js/common.js"></script>
-      <script src="static/js/weixin/photoInfo.js"></script>
+       <script src="static/bootstrap/js/plugins/toastr/toastr.min.js"></script>
+      <script src="static/js/weixin/photoDetailInfo.js"></script>
       <!-- Page-Level Scripts -->
       <script></script>
   </body>

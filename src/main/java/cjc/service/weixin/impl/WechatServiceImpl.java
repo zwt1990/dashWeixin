@@ -1,18 +1,14 @@
 package cjc.service.weixin.impl;
 
-import java.util.Date;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cjc.dto.WechatConfig;
-import cjc.entity.weixin.PhotoConfig;
 import cjc.entity.weixin.WeixinConfig;
 import cjc.entity.weixin.WeixinReply;
 import cjc.mapper.weixin.WeixinConfigDao;
-import cjc.mapper.weixin.WeixinPhotoConfigDao;
 import cjc.mapper.weixin.WeixinReplyDao;
 import cjc.service.weixin.WechatService;
 
@@ -22,8 +18,7 @@ public class WechatServiceImpl implements  WechatService{
 	@Autowired
 	private WeixinConfigDao weixinConfigDao;
 	
-	@Autowired
-	private WeixinPhotoConfigDao	weixinImgConfigDao;
+
 	
 	@Autowired
 	private WeixinReplyDao weixinReplyDao;
@@ -43,31 +38,7 @@ public class WechatServiceImpl implements  WechatService{
 		return (List<WeixinConfig>) configs;
 	}
 
-	public PhotoConfig insertImgConfig(Integer wxConfigId,Integer category,String url,String path,String name) {
-		PhotoConfig imgConfig=new PhotoConfig();
-		imgConfig.setCategory(category);
-		imgConfig.setConfigId(wxConfigId);
-		imgConfig.setPath(path);
-		imgConfig.setUrl(url);
-		imgConfig.setCreateTime(new Date());
-		imgConfig.setStatus(1);
-		imgConfig.setName(name);
-		return weixinImgConfigDao.save(imgConfig);
-		
-	}
 
-	@Override
-	public void deleteImgConfig(Integer id) {
-		weixinImgConfigDao.delete(id);
-	}
-
-	@Override
-	public List<PhotoConfig> getUsefulImgs(Integer configId,Integer category) {
-		if(category!=null){
-			return weixinImgConfigDao.findByConfigIdAndStatusAndCategory(configId, 1,category);
-		}
-		return weixinImgConfigDao.findByConfigIdAndStatus(configId, 1);
-	}
 
 	@Override
 	public WeixinConfig createWXconfig(WeixinConfig weixinConfig) {

@@ -30,7 +30,7 @@ public class UserLoginController extends BaseController{
 	@ResponseBody
 	public H5Response login(HttpServletRequest request,
 			HttpServletResponse response,String username,String password) throws IOException {
-		String Md5pass=Md5Util.getMD5String(password);
+		String Md5pass=Md5Util.getMD5String(password).toUpperCase();
 		User user=userAuthorityService.queryUsers(username, Md5pass);
 		if(user==null){
 			return failed("用户名或者密码不正确");
@@ -44,7 +44,7 @@ public class UserLoginController extends BaseController{
 	public void  queryList(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		SessionUtil.logout(request);
-		response.sendRedirect(envConfig.getDomain()+envConfig.getPath()+"/login.html");
+		response.sendRedirect("../login.html");
 	}
 	
 }
