@@ -4,15 +4,21 @@ $(function(){
 var table 
 function initTable(){
 	 table = $('#wxPhotoTable').dataTable( {
-		  "ajaxSource":  "../weixin/getConfigs",
+		  "ajaxSource":  "../wxphoto/getPhotos",
 		  "columns": [
 		    { "data": "appId" },
-		    { "data": "name" },
+		    { "data": "appName" },
+		    { "data": "photoName" },
 		    { 
 		    	"data": "id",
 		    	"render": function(data, type, full, meta) {
 		    		 return '<div class=\"fa fa-search\"   style=\"cursor:pointer\" onclick=\"toWXPhotoPG('+data+')\"></div>';
 				}
+		    },
+		    { "data": "createTime" ,
+		    	"render":function(data){
+		    		return new Date(data).format("yyyy-MM-dd");
+		    	}
 		    },
 		    { 
 		    	"data": "id",

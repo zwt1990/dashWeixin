@@ -48,7 +48,6 @@ function addConfig(){
 	if(!validate()){
 		return ;
 	}
-	alert($("#appId").val())
 	$.ajax({
         type: 'POST',
         url: '../weixin/addConfig',

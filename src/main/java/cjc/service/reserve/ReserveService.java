@@ -3,8 +3,10 @@ package cjc.service.reserve;
 import java.util.List;
 
 import cjc.dto.ResFormDTO;
+import cjc.entity.reserve.Course;
 import cjc.entity.reserve.ResForm;
 import cjc.entity.reserve.Reserve;
+import cjc.entity.reserve.UserCourse;
 
 public interface ReserveService{
 	
@@ -21,4 +23,14 @@ public interface ReserveService{
 	public ResFormDTO getResForm(Integer formId);
 	
 	public List<Reserve> queryByFormIdAndMobile(Integer formId,String mobile);
+	
+	public  List<Course> getCoursesByDate(String courseDate);
+	
+	public Integer addCourse(Course course);
+	
+	public List<Course> getCourse();
+	
+	public boolean appointCourse(UserCourse userCourse);
+	
+	public List<UserCourse> queryUserCourse(Integer course);
 }

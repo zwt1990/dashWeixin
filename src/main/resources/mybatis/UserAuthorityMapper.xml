@@ -27,4 +27,8 @@
    <select id="getMenusByLevel" resultMap="menuMap">
   		SELECT m.id,m.name,m.url,m.parent_id,m.level from sys_menu m where m.level = #{level, jdbcType=BIGINT}
   </select>
+  <select id="getWxPhotosByRoleId" resultType="cjc.dto.WeixinPhotoDTO" parameterType="INTEGER">
+  	select c.id,c.app_id appId,c.name appName , p.name photoName, p.create_time createTime from sys_weixin_role wr,weixin_config c ,weixin_photo p where c.id = wr.wx_config_id  and p.config_id=wr.wx_config_id
+  	<if test="roleId!=1"> and wr.role_id =  #{roleId, jdbcType=BIGINT}</if>
+  </select>
 </mapper>

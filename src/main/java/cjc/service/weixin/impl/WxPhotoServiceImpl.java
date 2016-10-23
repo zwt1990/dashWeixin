@@ -4,11 +4,17 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import cjc.dto.WeixinPhotoDTO;
+import cjc.entity.sys.Role;
 import cjc.entity.weixin.PhotoConfig;
 import cjc.entity.weixin.PhotoExt;
+import cjc.mapper.sys.UserAuthorityMapper;
 import cjc.mapper.weixin.PhotoExtDao;
 import cjc.mapper.weixin.WeixinPhotoConfigDao;
 import cjc.service.weixin.WxPhotoService;
@@ -18,15 +24,21 @@ public class WxPhotoServiceImpl implements WxPhotoService{
 	private WeixinPhotoConfigDao	weixinImgConfigDao;
 	@Autowired
 	private PhotoExtDao	photoExtDao;
+	@Autowired
+	private UserAuthorityMapper userAuthorityMapper;
 	@Override
-	public void deleteImgConfig(Integer id) {
+	public void deleteImgConfig(HttpServletRequest request ,Integer id) {
 		List<PhotoExt> photos=photoExtDao.findByPConfigId(id);
 		for(PhotoExt pr:photos){
-			removeFile("../sys/static"+pr.getExtValue());
+			String filePath =request.getSession().getServletContext()
+	                .getRealPath("/")+"sys/static"+pr.getExtValue();
+			removeFile(filePath);
 		}
 		photoExtDao.delete(photos);
 		PhotoConfig  photoConfig= weixinImgConfigDao.findOne(id);
-		removeFile("../sys/static"+photoConfig.getPath());
+		String secPath =request.getSession().getServletContext()
+                .getRealPath("/")+"sys/static"+photoConfig.getPath();
+		removeFile(secPath);
 		weixinImgConfigDao.delete(photoConfig);
 	}
 
@@ -39,17 +51,20 @@ public class WxPhotoServiceImpl implements WxPhotoService{
 	}
 	
 
-	public PhotoConfig insertImgConfig(Integer wxConfigId,Integer category,String path,String name) {
+	public PhotoConfig insertImgConfig(Integer wxConfigId,Integer category,String path,String name,String price) {
 		PhotoConfig imgConfig=new PhotoConfig();
 		imgConfig.setCategory(category);
 		imgConfig.setConfigId(wxConfigId);
 		imgConfig.setPath(path);
-		//imgConfig.setUrl(url);
 		imgConfig.setCreateTime(new Date());
 		imgConfig.setStatus(1);
 		imgConfig.setName(name);
-		return weixinImgConfigDao.save(imgConfig);
-		
+		PhotoConfig photoConfig= weixinImgConfigDao.save(imgConfig);
+		if(!StringUtils.isEmpty(price)){
+			addPhotoExt( photoConfig.getId(), "售价", price,
+					4) ;
+		}
+		return photoConfig;
 	}
 
 	@Override
@@ -77,9 +92,23 @@ public class WxPhotoServiceImpl implements WxPhotoService{
 	}
 
 	@Override
-	public void deletePhotoExt(Integer id) {
+	public void deletePhotoExt(HttpServletRequest request,Integer id) {
 		PhotoExt photoExt= photoExtDao.findOne(id);
-		removeFile("../sys/static"+photoExt.getExtValue());
+		String filePath =request.getSession().getServletContext()
+                .getRealPath("/")+"sys/static"+photoExt.getExtValue();
+		removeFile(filePath);
 		photoExtDao.delete(photoExt);
+	}
+
+	@Override
+	public PhotoConfig get(Integer id) {
+		return weixinImgConfigDao.findOne(id);
+	}
+
+	@Override
+	public List<WeixinPhotoDTO> getWeixinPhotos(Integer userId) {
+		List<Role> roles=userAuthorityMapper.getRolesByUserId(userId);
+		List<WeixinPhotoDTO> photos=userAuthorityMapper.getWxPhotosByRoleId(roles.get(0).getId());
+		return photos;
 	}
 }

@@ -1,11 +1,12 @@
 package cjc.web.controller;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import cjc.common.utils.FileUtil;
+import cjc.common.utils.FileUtil.FileSie;
+import cjc.common.utils.SessionUtil;
 import cjc.common.weixin.sdk.WeixinException;
+import cjc.dto.WeixinPhotoDTO;
 import cjc.entity.weixin.PhotoConfig;
 import cjc.entity.weixin.PhotoExt;
 import cjc.service.weixin.WxPhotoService;
@@ -27,25 +32,36 @@ public class WxPhotoController extends BaseController{
 	@Autowired
 	private WxPhotoService wxPhotoService;
 	
+	
+  ExecutorService singleThreadPool = Executors.newSingleThreadExecutor();  
+	
+  
+	@RequestMapping("/wxphoto/getPhotos")
+	@ResponseBody
+	public H5Response getPhotos(HttpServletRequest request) throws  IOException {
+		Integer userId = (Integer) SessionUtil.getUserId(request);
+		if(userId==null){
+			return failed("用户尚未登录");
+		}
+		 List<WeixinPhotoDTO> weixinPhotoDTOs= wxPhotoService.getWeixinPhotos(userId);
+		 return succeed(weixinPhotoDTOs);
+	}
+  
+  
 	@RequestMapping("/wxphoto/uploadImgs")
 	@ResponseBody
-	public H5Response uploadImgs(HttpServletRequest request, MultipartFile file,Integer category,Integer configId,String name) throws WeixinException, IOException {
-		PhotoConfig imgConfig=wxPhotoService.insertImgConfig(configId,category,"/img/upload/"+new Date().getTime() + new String(file.getOriginalFilename().getBytes(),"UTF-8"),name);
-		 //拿到输出流，同时重命名上传的文件  
-		String baseUrl= request.getSession().getServletContext()
-                .getRealPath("/")+"sys/static";//TODO 后面可修改nigux映射到其他盘
-		String filePath =baseUrl+imgConfig.getPath() ;
-         FileOutputStream os = new FileOutputStream(filePath);  
-         //拿到上传文件的输入流  
-         FileInputStream in = (FileInputStream) file.getInputStream();  
-         //以写字节的方式写文件  
-         int b = 0;  
-         while((b=in.read()) != -1){  
-             os.write(b);  
-         }  
-         os.flush();  
-         os.close();  
-         in.close();  
+	public H5Response uploadImgs(HttpServletRequest request,final  MultipartFile file,Integer category,Integer configId,String name,String price) throws WeixinException, IOException {
+		String absPath="/img/upload/"+new Date().getTime() +Math.random()*9000+1000;
+		final String filePath =request.getSession().getServletContext()
+                .getRealPath("/")+"sys/static"+absPath;
+		wxPhotoService.insertImgConfig(configId,category,absPath,name,price);
+		final  FileInputStream in=(FileInputStream) file.getInputStream();
+		singleThreadPool.execute(new Runnable() {
+			@Override
+			public void run() {
+				FileUtil.uploadCompressPic(in,filePath, true,FileSie.small);
+			}
+		});
          return succeed();
 	}
 	
@@ -101,52 +117,48 @@ public class WxPhotoController extends BaseController{
 	
 	@RequestMapping("/wxphoto/deletePhoto")
 	@ResponseBody
-	public H5Response deletePhoto(Integer id){
-		wxPhotoService.deleteImgConfig(id);
+	public H5Response deletePhoto(HttpServletRequest request,Integer id){
+		wxPhotoService.deleteImgConfig(request,id);
 		return succeed();
 	}
 	
 	@RequestMapping("/wxphoto/deletePhotoExt")
 	@ResponseBody
-	public H5Response deletePhotoExt(Integer id){
-		wxPhotoService.deletePhotoExt(id);
+	public H5Response deletePhotoExt(HttpServletRequest request,Integer id){
+		wxPhotoService.deletePhotoExt(request,id);
 		return succeed();
 	}
 	
 	@RequestMapping("/wxphoto/addImgExt")
 	@ResponseBody
-	public H5Response addImgExt(HttpServletRequest request, MultipartFile file,Integer pconfigId,Integer type) throws WeixinException, IOException {
-		String path="/img/upload/"+new Date().getTime() + new String(file.getOriginalFilename().getBytes(),"UTF-8");
+	public H5Response addImgExt(HttpServletRequest request,final  MultipartFile file,Integer pconfigId,Integer type) throws WeixinException, IOException {
 		String key="轮播图片";
 		if(type==3){
 			key="详情图片";
 		}
-		wxPhotoService.addPhotoExt(pconfigId, key, path, type);
-		 //拿到输出流，同时重命名上传的文件  
-		String baseUrl= request.getSession().getServletContext()
-                .getRealPath("/")+"sys/static";
-		String filePath =baseUrl+path ;
-         FileOutputStream os = new FileOutputStream(filePath);  
-         //拿到上传文件的输入流  
-         FileInputStream in = (FileInputStream) file.getInputStream();  
-         //以写字节的方式写文件  
-         int b = 0;  
-         while((b=in.read()) != -1){  
-             os.write(b);  
-         }  
-         os.flush();  
-         os.close();  
-         in.close();  
+		String absPath="/img/upload/"+new Date().getTime() +Math.random()*9000+1000;
+		final String filePath =request.getSession().getServletContext()
+                .getRealPath("/")+"sys/static"+absPath;
+		wxPhotoService.addPhotoExt(pconfigId, key, absPath, type);
+		final  FileInputStream in=(FileInputStream) file.getInputStream();
+		singleThreadPool.execute(new Runnable() {
+			@Override
+			public void run() {
+				FileUtil.uploadCompressPic(in,filePath, true,FileSie.middle);
+			}
+		});
          return succeed();
 	}
 	
 	@RequestMapping("/wxphoto/getTypePhotoExt")
 	@ResponseBody
 	public JSONObject getTypePhotoExt(Integer pConfigId){
+		PhotoConfig photoConfig=wxPhotoService.get(pConfigId);
 		List<PhotoExt> photoExts=wxPhotoService.findByPConfigId(pConfigId);
 		List<PhotoExt> sliderPhotoExts=new ArrayList<PhotoExt>();
 		List<PhotoExt> formDataExts=new ArrayList<PhotoExt>();
 		List<PhotoExt> descImgExts=new ArrayList<PhotoExt>();
+		PhotoExt priceExt=new PhotoExt();
 		for(PhotoExt photoExt:photoExts){
 			if(photoExt.getType()==1){//轮播
 				sliderPhotoExts.add(photoExt);
@@ -157,11 +169,16 @@ public class WxPhotoController extends BaseController{
 			if(photoExt.getType()==3){
 				descImgExts.add(photoExt);
 			}
+			if(photoExt.getType()==4){
+				priceExt=photoExt;
+			}	
 		}
 		JSONObject json=new JSONObject();
 		json.put("sliderExts", sliderPhotoExts);
 		json.put("formExts", formDataExts);
+		json.put("priceExt", priceExt);
 		json.put("descImgExts", descImgExts);
+		json.put("name", photoConfig.getName());
 		return json;
 	}
 }

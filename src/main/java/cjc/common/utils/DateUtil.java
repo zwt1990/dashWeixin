@@ -284,7 +284,7 @@ public class DateUtil {
 	                    Integer.parseInt(date.substring(5, 7)) - 1,   
 	                    Integer.parseInt(date.substring(8, 10)));  
 	            gCal.add(GregorianCalendar.DATE, i);  
-	            return sdf_date_format.format(gCal.getTime());  
+	            return sdf_datetime_format.format(gCal.getTime());  
 	        } catch (Exception e) {  
 	            logger.debug("DateUtil.addDay():" + e.toString());  
 	            return getDateStr();  

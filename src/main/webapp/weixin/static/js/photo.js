@@ -124,10 +124,9 @@
         }
         return _productItemTemplate({
             imageUrl: productItem.imageUrl,
-            productName: productItem.productName,
+            name: productItem.productName,
             link:'photoDetail.html?id='+ productItem.id,
             price: productItem.price,
-            description: productItem.description
         });
     }
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import cjc.dto.WeixinPhotoDTO;
 import cjc.entity.sys.Menu;
 import cjc.entity.sys.Role;
 import cjc.entity.sys.User;
@@ -19,4 +20,7 @@ public interface UserAuthorityMapper {
 	List<Role> getRolesByUserId(@Param(value="userId") Integer userId);
 	
 	List<Menu> getMenusByLevel(@Param(value="level") Integer level);
+	
+	List<WeixinPhotoDTO> getWxPhotosByRoleId(@Param(value="roleId") Integer roleId);
+	
 }

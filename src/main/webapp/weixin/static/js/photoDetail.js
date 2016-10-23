@@ -42,9 +42,13 @@
          showSlider(sliderList);
          showFormData(data.formExts);
          if(data.descImgExts.length>0){
-        	 $("#descImg").attr("src","../sys/static"+data.descImgExts[0].extValue)
+        	 $("#descImg").attr("src","../sys/static"+data.descImgExts[0].extValue);
          }
-        
+         if(data.priceExts){
+        	 $("#price").val(data.priceExt.extValue);
+         }
+         $("#price").html(data.priceExt.extValue)
+        $("#name").html(data.name)
     }
     
     function showSlider(sliderList) {

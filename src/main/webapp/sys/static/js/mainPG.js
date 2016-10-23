@@ -16,6 +16,7 @@ function initData(){
 		   $("#name").html(data.user.name);
 		   $("#role").html(data.user.role.name);
 		   $("#side-menu").append(html_menus);
+		   $("#parentFrame").attr("src",data.menu[0].menus[0].url);
 	   }else{
 		   location.replace("../login.html");
 	   }

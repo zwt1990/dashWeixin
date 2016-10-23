@@ -2,6 +2,8 @@ package cjc.service.reserve.impl;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,10 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cjc.common.utils.DateUtil;
+import cjc.common.utils.DateUtils;
 import cjc.dto.ResFormDTO;
+import cjc.entity.reserve.Course;
 import cjc.entity.reserve.Dictionary;
 import cjc.entity.reserve.ResForm;
 import cjc.entity.reserve.Reserve;
+import cjc.entity.reserve.UserCourse;
 import cjc.mapper.reserve.DictionaryMapper;
 import cjc.mapper.reserve.ResFormMapper;
 import cjc.mapper.reserve.ReserveMapper;
@@ -124,4 +129,61 @@ public class ReserveServiceImpl implements ReserveService{
 		return reserveMapper.queryByFormIdAndMobile(formId, mobile);
 	}
 
+
+	@Override
+	public List<Course> getCoursesByDate(String courseDate) {
+		try {
+			Date startTime = DateUtils.parseDateTime(courseDate);
+			if(DateUtil.getMargin(courseDate,DateUtil.getDateStr() )<0){
+				return new ArrayList<Course>();
+			}
+			if(DateUtil.getMargin(courseDate,DateUtil.getDateStr() )>0){
+				startTime=DateUtils.getStartDate(startTime);
+				Date endTime=DateUtils.getEndDate(startTime);
+				return  reserveMapper.getCoursesByDate(startTime,endTime);
+			}
+			if(courseDate.equals(DateUtils.getCurrentDateStr())){
+				 startTime=DateUtils.getCurrentTime();
+			}
+			return  reserveMapper.getCoursesByDate(startTime,DateUtils.getEndDate(startTime));
+		} catch (ParseException e) {
+			return null;
+		}
+		
+	}
+
+
+	@Override
+	public Integer addCourse(Course course) {
+		try {
+			course.setStartDate(DateUtils.parseDateTime(course.getStartDateStr()));
+			course.setEndDate(DateUtils.parseDateTime(course.getEndDateStr()));
+			return reserveMapper.insertCourse(course);
+		} catch (ParseException e) {
+			return -1;
+		}
+	
+	}
+
+
+	@Override
+	public List<Course> getCourse() {
+		return reserveMapper.getCourses();
+	}
+
+
+	@Override
+	public boolean appointCourse(UserCourse userCourse) {
+		 List<UserCourse>  userCourses=reserveMapper.queryUserCourse(userCourse.getCourseId(),userCourse.getPhone());
+		 if(userCourses!=null&&userCourses.size()>0){
+			 return false;
+		 }
+		return reserveMapper.insertUserCourse(userCourse)>0;
+	}
+
+
+	@Override
+	public List<UserCourse> queryUserCourse(Integer course) {
+		return reserveMapper.queryUserCourse(course, null);
+	}
 }

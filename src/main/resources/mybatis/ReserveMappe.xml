@@ -20,9 +20,50 @@
    select r.id ,r.name,r.mobile,r.sex,r.project,r.order_date,r.form_id from reserve_reserve r
    where r.form_id =#{formId, jdbcType=BIGINT} and  r.mobile =#{mobile, jdbcType=VARCHAR} ;
   </select>
-   <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="cjc.entity.reserve.Reserve">
-		INSERT INTO `reserve_reserve`(`name`, `mobile`, `sex`, `project`,`order_date`,`form_id`) 
+	<insert id="save" useGeneratedKeys="true" keyProperty="id"
+		parameterType="cjc.entity.reserve.Reserve">
+		INSERT INTO `reserve_reserve`(`name`, `mobile`, `sex`,
+		`project`,`order_date`,`form_id`)
 		VALUES(#{name}, #{mobile}, #{sex},#{project},#{resDate}, #{formId})
-    </insert>
-  
+	</insert>
+	<select id="getCoursesByDate" resultType="cjc.entity.reserve.Course">
+		select p.id ,p.name,p.coach,
+		p.start_date startDate,end_date endDate ,p.number,TIMESTAMPDIFF(MINUTE ,p.start_date,p.end_date) duration
+		FROM
+		reserve_course p
+		where p.start_date &gt; #{startDate, jdbcType=TIMESTAMP} and
+		p.start_date &lt; #{endDate, jdbcType=TIMESTAMP}
+		order by p.start_date
+	</select>
+		<select id="getCourses" resultType="cjc.entity.reserve.Course">
+		select p.id ,p.name,p.coach,
+		p.start_date startDate,end_date endDate ,p.number,TIMESTAMPDIFF(MINUTE ,p.start_date,p.end_date) duration,p.create_time createTime
+		FROM
+		reserve_course p
+		order by p.start_date desc
+	</select>
+	<insert id="insertCourse" useGeneratedKeys="true" keyProperty="id"
+		parameterType="cjc.entity.reserve.Course">
+		INSERT INTO `reserve_course`(`name`, `start_date`, `end_date`,
+		`coach`,`number`,`create_time`)
+		VALUES(#{name}, #{startDate}, #{endDate},#{coach},#{number}, now())
+	</insert>
+	<insert id="insertUserCourse" useGeneratedKeys="true" keyProperty="id"
+		parameterType="cjc.entity.reserve.UserCourse">
+		INSERT INTO `reserve_user_course`(`course_id`,`name`, `phone`, `notes`,
+		`create_time`)
+		VALUES(#{courseId},#{name}, #{phone}, #{notes}, now())
+	</insert>
+	<select id="queryUserCourse" resultType="cjc.entity.reserve.UserCourse">
+		select t.name,t.phone,t.notes,c.name courseName ,t.create_time
+		createTime from reserve_user_course t ,reserve_course c 
+		where
+		t.course_id = #{courseId}
+		and t.course_id = c.id
+		<if test="phone!=null">
+			and phone=#{phone}
+		</if>
+
+	</select>
+	
 </mapper>

@@ -160,7 +160,7 @@
  		    { "data": "extKey" },
  		    { "data": "extValue" ,
  		    	"render": function(data, type, full, meta) {
- 		    		if(full.type!=2){
+ 		    		if(full.type==1||full.type==3){
  		    			 return '<img  style=\"max-width:20px;max-height:20px\"  src=\"../sys/static'+data+'\"/>';
  		    		}
  		    		return data;

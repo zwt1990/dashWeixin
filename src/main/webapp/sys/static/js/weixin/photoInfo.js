@@ -1,6 +1,18 @@
  $(function(){
 	 initTable();
+	 initEvent();
  });
+ 
+ function initEvent(){
+	 $("#category").change(function(){
+		 if( $(this).val()=='3'){
+			 $('#price').show();
+		 }else{
+			 $('#price').hide();
+		 }
+	 })
+	 
+ }
  function getCategory(){
 	 return $("#category").val();  
  }
@@ -20,6 +32,7 @@
 	// $("#url").val('');
 	 $("#name").val('');
 	 $("#file").val('');
+	 $("#price").val('');
  }
  function next(){
 	 upladFile(clearForm);
@@ -52,6 +65,7 @@
      form.append("file", fileObj);  
  //    form.append("url", getUrl());  
      form.append("name", getName());  
+     form.append("price", $("#price").val()); 
      form.append("configId",getQueryString('id')); 
      // XMLHttpRequest 对象
      var xhr = new XMLHttpRequest();

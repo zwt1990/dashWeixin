@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="text/html" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0">
+<link href="../sys/static/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="../sys/static/bootstrap/font-awesome/css/font-awesome.css"
+	rel="stylesheet">
+<link href="css/jquery-ui.css" type="text/css" rel="stylesheet">
+<link href="css/weui.min.css" type="text/css" rel="stylesheet">
+<link href="css/jquery-weui.css" type="text/css" rel="stylesheet">
+<script src="../sys/static/bootstrap/js/jquery-2.1.1.min.js"></script>
+<script src="../sys/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/jquery-weui.js"></script>
+<script src="../sys/static/js/underscore.js"></script>
+<script src="js/course.js"></script>
+<script type="text/template" id="course-temp">
+	<%_.each(obj, function(item, index) { %>
+		<tr>
+				<td style='text-align: center; padding: 10px 2px; width: 15%'><h5
+						style="font-size: 20px; font-weight: 500; color: #333333">
+						<b><%=item.startDateStr%></b>
+					</h5></td>
+				<td style='padding: 0.5em; vertical-align: middle; width: 70%'>
+					<h5
+						style='margin-top: 0.5em; margin-bottom: 0.5em; font-size: 1.3em; color: #333333;'>
+						<b> <%=item.name%> </b>
+					</h5>
+					<p
+						style='margin-bottom: 0.3em; font-size: 0.8em; font-weight: 300; color: #666666'>
+						老师: &nbsp;&nbsp;&nbsp;&nbsp;<%=item.coach%>  时长:<%=item.duration%>分钟 <br> 结束时间：<%=item.endDateStr%> 
+					</p>
+				</td>
+				<td
+					style='vertical-align: middle; padding-right: 0.8em; width: 18%;'>
+					<button class="weui_btn weui_btn_mini weui_btn_primary"
+						style='width: 4.5em; height: 2.5em; display: <%=item.number == 0 ? " none" : ""%>' class_id=<%=item.id%> 
+						name='bookBtn' >预约</button>
+				</td>
+			</tr>
+
+	<%})%>
+    </script>
+<title>预约课程</title>
+</head>
+<body style='margin: 0 auto; max-width: 800px;'>
+	<style>
+.breadcrumb {
+	margin-bottom: 0px;
+}
+</style>
+	<meta http-equiv="refresh" content="180">
+	<ul class="breadcrumb"
+		style='background-color: #CCCCCC; border-radius: 0'>
+		<li><a href="" style="color:"><i class="icon-home"
+				style="font-size: 25px"></i></a></li>
+		<li class='active'><a href="" style="color:">现在预约</a></li>
+	</ul>
+	<div class='jumbotron' style='padding: 1em 0'>
+		<span id='status' style='display: none'></span>
+		<!--预约成功提示-->
+		<div class="alert alert-dismissable alert-success"
+			style='display: none; text-align: center; font-weight: 600'
+			id='alert'></div>
+
+
+		<table class='table table-striped' style='width: 100%' id="dataTable">
+			<caption>
+				<div class='col-xs-4'>
+						<button type="submit" class='weui_btn weui_btn_plain_primary'
+							style='width: 5em; display: inline; border-radius: 1em' onclick="toPreDay()">
+							<span class='glyphicon glyphicon-chevron-left'></span>
+						</button>
+				</div>
+
+				<div class='col-xs-4' style='font-size: 1.2em'>
+					<span id='todayDate'></span><br> <span id="todayWeek"></span>
+					<input type="hidden" id="today">
+				</div>
+
+				<div class='col-xs-4'>
+						<button type="submit" class='weui_btn weui_btn_plain_primary'
+							style='width: 5em; display: inline; border-radius: 1em' onclick="toNextDay()">
+							<span class='glyphicon glyphicon-chevron-right'></span>
+						</button>
+				</div>
+
+			</caption>
+			 <tbody>
+			 </tbody>
+		</table>
+		<div class="btn-group btn-group-justified"
+			style="width: 50%; margin: 0 auto 1em auto;">
+			<a  class="btn btn-success">整周课表</> <a  class="btn btn-warning">取消预约</a>
+		</div>
+
+		<br>
+		<div class='panel panel-success' style='margin: 1em'>
+			<div class='panel-heading'>
+				<div class='panel-title'>课程预约说明</div>
+			</div>
+			<div class='panel-body'>
+				<div>
+					<font face="Arial, Verdana"><span
+						style="font-size: 13.3333px;">※带★为特色课程。所有课程请提前预约，带阴影课程请至少提前三小时预约，高温和公益瑜伽需要至少提一天预约。</span></font>
+					<div>
+						<font face="Arial, Verdana"><span
+							style="font-size: 13.3333px;">※取消请提前2小时，预约不足3人课程自动取消，工作人员会提前一个半小时通知到您。不便之处请谅解。</span></font>
+					</div>
+					<div>
+						<font face="Arial, Verdana"><span
+							style="font-size: 13.3333px;">※每周六下午公益瑜伽面向所有瑜伽爱好者开放，由馆里优秀老师轮流授课。</span></font>
+					</div>
+					<div>
+						<font face="Arial, Verdana"><span
+							style="font-size: 13.3333px;">※请保持至少2小时的空腹练习瑜伽，如果感觉饥饿可以少量吃点水果或点心。</span></font>
+					</div>
+					<div>
+						<font face="Arial, Verdana"><span
+							style="font-size: 13.3333px;">※希望大家在预订的瑜伽课程开始前15分钟到达会馆，以便有足够时间登记及更换衣物；课程开始前5分钟前台停止签到，以免影响您和其他会员的习练。</span></font>
+					</div>
+					<div>
+						<font face="Arial, Verdana"><span
+							style="font-size: 13.3333px;">※课程如需取消请至少提前两小时，预约未及时取消累计三次将取消一周订课权利。</span></font>
+					</div>
+					<div>
+						<font face="Arial, Verdana"><span
+							style="font-size: 13.3333px;">※为了你和他人的练习环境，请勿将手机、手提袋等用品带入教室。</span></font>
+					</div>
+					<div>
+						<font face="Arial, Verdana"><span
+							style="font-size: 13.3333px;">※课表每月更新，以当月课表为准。</span></font>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class='panel panel-success' style='margin: 1em'>
+			<div class='panel-heading'>
+				<div class='panel-title'>等级说明</div>
+			</div>
+			<div class='panel-body'>
+				<span>★</span> : <span>特色课程</span><br>
+			</div>
+		</div>
+		<input type="hidden" id="maxMissCheckNums" value="3">
+
+<!-- 预约框-->
+		<div class="modal" id='book_div'>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true" style='font-size: 2em'>×</button>
+						<h4 class="modal-title">请输入信息</h4>
+					</div>
+					<div class="modal-body">
+						<form class='form-horizontal'>
+							<input type='hidden' id='bookClassid'>
+							<div class="input-group">
+								<span class="input-group-addon">手机号码</span> <input type="tel"
+									class="form-control" name='mobile' id="mobile" value=''
+									placeholder='必填'>
+							</div>
+							<br>
+							<div class="input-group">
+								<label class="input-group-addon">您的姓名</label> <input type="text"
+									class="form-control" name='username' id="userName" value=''>
+							</div>
+							<br>
+							<div class="input-group">
+								<label class="input-group-addon">预约备注</label> <input type="text"
+									class="form-control" name='note' id='bookNote'>
+							</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-success" id='bookButton' onclick="submitAppoint()">确认预约</button>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	<!-- 后补预约 框？？？-->
+		<div class="modal" id='wait_book_div'>
+			<form class='form-horizontal'>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true" style='font-size: 2em'>×</button>
+							<h4 class="modal-title" style='color: orange'>候补预约，请输入信息</h4>
+						</div>
+						<div class="modal-body">
+							<input type='hidden' id='waitBookClassid'>
+							<div class="input-group">
+								<label class="input-group-addon">手机号码</label> <input type="tel"
+									class="form-control" name='mobile' id="waitMobile" value=''
+									placeholder='必填'>
+							</div>
+							<br>
+							<div class="input-group">
+								<label class="input-group-addon">您的姓名</label> <input type="text"
+									class="form-control" name='username' id="waitUserName" value=''>
+							</div>
+							<br>
+							<div class="input-group">
+								<label class="input-group-addon">预约备注</label> <input type="text"
+									class="form-control" name='note' id='waitNote'>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">关闭</button>
+							<button type="button" class="btn btn-success" id="waitBookButton">确认预约</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+</body>
+
+<style>
+.menuImg {
+	width: 5.5em;
+	height: 5.5em;
+	border-radius: 50%;
+	margin-bottom: 4px;
+}
+</style>
+<script>
+</script>
+
+
+</html>
