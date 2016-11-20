@@ -38,8 +38,8 @@
 				<td
 					style='vertical-align: middle; padding-right: 0.8em; width: 18%;'>
 					<button class="weui_btn weui_btn_mini weui_btn_primary"
-						style='width: 4.5em; height: 2.5em; display: <%=item.number == 0 ? " none" : ""%>' class_id=<%=item.id%> 
-						name='bookBtn' >预约</button>
+						style='width: 4.5em; height: 2.5em; display: <%=item.remainAmount == 0 ? " none" : ""%>' class_id=<%=item.id%> 
+						name='bookBtn' data-id=<%=item.id%>>余<%=item.remainAmount%></button>
 				</td>
 			</tr>
 

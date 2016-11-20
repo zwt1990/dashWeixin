@@ -156,6 +156,7 @@ public class ReserveServiceImpl implements ReserveService{
 	@Override
 	public Integer addCourse(Course course) {
 		try {
+			course.setResAmount(0);
 			course.setStartDate(DateUtils.parseDateTime(course.getStartDateStr()));
 			course.setEndDate(DateUtils.parseDateTime(course.getEndDateStr()));
 			return reserveMapper.insertCourse(course);
@@ -178,12 +179,30 @@ public class ReserveServiceImpl implements ReserveService{
 		 if(userCourses!=null&&userCourses.size()>0){
 			 return false;
 		 }
-		return reserveMapper.insertUserCourse(userCourse)>0;
+		 Course course= reserveMapper.getCourseById(userCourse.getCourseId());
+		 course.setResAmount(course.getResAmount()+1);
+		 reserveMapper.insertUserCourse(userCourse);
+		 reserveMapper.updateCourse(course);
+		 return true;
 	}
 
 
 	@Override
 	public List<UserCourse> queryUserCourse(Integer course) {
 		return reserveMapper.queryUserCourse(course, null);
+	}
+
+
+
+
+	@Override
+	public void deleteCourse(Integer courseId) {
+		reserveMapper.deleteCourse(courseId);
+	}
+
+
+	@Override
+	public void deleteUserCourse(Integer courseId) {
+		reserveMapper.deleteUserCourse(courseId);
 	}
 }

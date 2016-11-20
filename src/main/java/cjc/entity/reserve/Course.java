@@ -21,6 +21,10 @@ public class Course {
 	
 	private Integer number;//数量
 	
+	private Integer resAmount;//预约数量
+	
+	private Integer remainAmount;//预约数量
+	
 	private Integer duration;//时长，计算得到
 	
 	private Date createTime;
@@ -73,6 +77,9 @@ public class Course {
 
 	public void setNumber(Integer number) {
 		this.number = number;
+		if(resAmount!=null){
+			setRemainAmount(number-resAmount);
+		}
 	}
 
 	public Integer getDuration() {
@@ -105,5 +112,24 @@ public class Course {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public Integer getResAmount() {
+		return resAmount;
+	}
+
+	public void setResAmount(Integer resAmount) {
+		this.resAmount = resAmount;
+		if(number!=null){
+			setRemainAmount(number-resAmount);
+		}
+	}
+
+	public Integer getRemainAmount() {
+		return remainAmount;
+	}
+
+	public void setRemainAmount(Integer remainAmount) {
+		this.remainAmount = remainAmount;
 	}
 }

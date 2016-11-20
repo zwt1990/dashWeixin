@@ -27,4 +27,13 @@ public interface ReserveMapper{
 	public Integer insertUserCourse(UserCourse userCourse);
 	
 	public List<UserCourse> queryUserCourse(@Param("courseId")Integer courseId,@Param("phone")String phone);
+	
+	public void deleteCourse(@Param("courseId")Integer courseId);
+	
+	public void deleteUserCourse(@Param("courseId")Integer courseId);
+	
+	public Course getCourseById(@Param("courseId")Integer courseId);
+	
+	public Integer updateCourse(Course course);
+	
 } 

@@ -35,7 +35,7 @@ function initTable(){
 		    { 
 		    	"data": "id",
 		    	"render": function(data, type, full, meta) {
-		    		 return '<div class=\"fa fa-remove\"   style=\"cursor:pointer\"></div>';
+		    		 return '<div class=\"fa fa-remove\"   onclick=\"deleteCourse('+data+')\" style=\"cursor:pointer\"></div>';
 				}
 		    }
 		  ]
@@ -86,6 +86,43 @@ function  clearForm(){
 	$("#coach").val('');
 }
 
+function deleteCourse(data){
+	 $.layer({
+		    shade: [0],
+		    area: ['auto','auto'],
+		    dialog: {
+		        msg: '确认要删除该课程吗',
+		        btns: 2,                    
+		        type: 4,
+		        btn: ['确认','取消'],
+		        yes: function(){
+		        	removeCourse(data);
+		        	 layer.msg('删除 中', 1, 1);
+		        }, no: function(){
+		           // layer.msg('奇葩', 1, 13);
+		        }
+		    }
+		});
+}
+
+function removeCourse(id){
+	$.ajax({
+        type: 'POST',
+        url: '../course/deleteCourse',
+        data:{
+        	courseId:id
+        },
+        dataType: "json",
+        success: function(data) {
+            if (!data.status) {
+            	showErrMsg(data.msg);
+                return;
+            }
+            showInfoMsg("删除成功");
+            table.api().ajax.reload();
+        }
+    });
+}
 
 function save(){
 	if(!getDataParam()){

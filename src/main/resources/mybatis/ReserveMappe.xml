@@ -28,7 +28,7 @@
 	</insert>
 	<select id="getCoursesByDate" resultType="cjc.entity.reserve.Course">
 		select p.id ,p.name,p.coach,
-		p.start_date startDate,end_date endDate ,p.number,TIMESTAMPDIFF(MINUTE ,p.start_date,p.end_date) duration
+		p.start_date startDate,end_date endDate ,p.number,p.res_amount resAmount,TIMESTAMPDIFF(MINUTE ,p.start_date,p.end_date) duration
 		FROM
 		reserve_course p
 		where p.start_date &gt; #{startDate, jdbcType=TIMESTAMP} and
@@ -45,8 +45,8 @@
 	<insert id="insertCourse" useGeneratedKeys="true" keyProperty="id"
 		parameterType="cjc.entity.reserve.Course">
 		INSERT INTO `reserve_course`(`name`, `start_date`, `end_date`,
-		`coach`,`number`,`create_time`)
-		VALUES(#{name}, #{startDate}, #{endDate},#{coach},#{number}, now())
+		`coach`,`number`,`res_amount`,`create_time`)
+		VALUES(#{name}, #{startDate}, #{endDate},#{coach},#{number},#{resAmount}, now())
 	</insert>
 	<insert id="insertUserCourse" useGeneratedKeys="true" keyProperty="id"
 		parameterType="cjc.entity.reserve.UserCourse">
@@ -63,7 +63,25 @@
 		<if test="phone!=null">
 			and phone=#{phone}
 		</if>
-
 	</select>
+		<select id="getCourseById" resultType="cjc.entity.reserve.Course">
+	select p.id ,p.name,p.coach,
+		p.start_date startDate,end_date endDate ,p.number,p.res_amount resAmount,TIMESTAMPDIFF(MINUTE ,p.start_date,p.end_date) duration,p.create_time createTime
+		FROM
+		reserve_course p
+		where
+		p.id = #{courseId}
+		</select>
+	<delete id="deleteCourse" parameterType="int">  
+        delete from reserve_course where id = #{courseId}  
+    </delete>  
+    	<delete id="deleteUserCourse" parameterType="int">  
+        delete from reserve_user_course where course_id = #{courseId}  
+    </delete>  
+ 	<update id="updateCourse" parameterType="cjc.entity.weixin.WeixinReply">  
+        update reserve_course set res_amount = #{resAmount}    where id = #{id}  
+    </update>  
+  
 	
+    
 </mapper>

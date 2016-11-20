@@ -2,6 +2,8 @@ package cjc.service.reserve;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import cjc.dto.ResFormDTO;
 import cjc.entity.reserve.Course;
 import cjc.entity.reserve.ResForm;
@@ -33,4 +35,8 @@ public interface ReserveService{
 	public boolean appointCourse(UserCourse userCourse);
 	
 	public List<UserCourse> queryUserCourse(Integer course);
+	
+	public void deleteCourse(Integer courseId);
+	
+	public void deleteUserCourse(Integer courseId);
 }

@@ -89,8 +89,18 @@ function submitAppoint(){
 		success : function(data) {
 			if(data.status){
 				$('#book_div').modal('hide');
+				$('[name="bookBtn"]').each(function(index){
+					if($(this).attr("class_id")==$('#bookClassid').val()){
+						var oldHtml=$(this).html();
+					var curAmount=oldHtml.substr(1,oldHtml.length)-1;
+					$(this).html("余"+(curAmount>0?curAmount:0));
+					}
+				});
+				
 				alert("预约成功");
+				return;
 			}
+			
 			alert(data.msg)
 			
 		}

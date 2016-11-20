@@ -54,6 +54,29 @@ public class CourseController extends BaseController{
 		return succeed(courses);
     }
 	
+	@RequestMapping(value = "/deleteCourse")
+    @ResponseBody
+    public H5Response deleteCourse(HttpServletRequest request,
+			HttpServletResponse response,Integer courseId) throws Exception {
+		reserveService.deleteCourse(courseId);
+		List<UserCourse> usercourses=reserveService.queryUserCourse(courseId);
+		if(usercourses!=null&&usercourses.size()>0){
+			reserveService.deleteUserCourse(courseId);
+		}
+		return succeed();
+    }
+	@RequestMapping(value = "/addCourse")
+    @ResponseBody
+    public H5Response addCourse(HttpServletRequest request,
+			HttpServletResponse response,Course course) throws Exception {
+		if(StringUtils.isEmpty(course.getCoach())||StringUtils.isEmpty(course.getName())){
+			return failed("参数缺失");
+		}
+		reserveService.addCourse(course);
+		return succeed();
+    }
+	
+	
 	@RequestMapping(value = "/submitAppoint")
     @ResponseBody
     public H5Response submitAppoint(HttpServletRequest request,
@@ -63,7 +86,7 @@ public class CourseController extends BaseController{
 		}
 		boolean result=reserveService.appointCourse(userCourse);
 		if(!result){
-			return failed("请勿重复预约");
+			return failed("该号码已预约过该课程暂时无法预约");
 		}
 		return succeed();
     }
